@@ -1,39 +1,43 @@
 using UnityEngine;
 
-public class PlayerScript : MonoBehaviour{
-    public float JumpForce;
+public class PlayerScript : MonoBehaviour
+{
+  [SerializeField] private float _jumpForce;
+  [SerializeField] private bool _isGrounded = false;
+  private int _noOfJumps = 0;
 
-    [SerializeField]
-    bool isGrounded = false;
-    int noOfJumps = 0;
+  private Rigidbody2D _rigidbody;
 
-    Rigidbody2D RB;
+  private void Awake()
+  {
+    _rigidbody = GetComponent<Rigidbody2D>();
+  }
 
-    private void Awake(){
-        RB = GetComponent<Rigidbody2D>();
+
+  void Update()
+  {
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+      if (_isGrounded == true)
+      {
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.AddForce(Vector2.up * _jumpForce);
+        _isGrounded = false;
+        _noOfJumps = 1;
+      } else if (_noOfJumps == 1)
+      {
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.AddForce(Vector2.up * _jumpForce);
+        _noOfJumps = 2;
+      }
     }
+  }
 
-
-    // Update is called once per frame
-    void Update(){
-        if(Input.GetKeyDown(KeyCode.Space)){
-            if(isGrounded == true){
-                RB.AddForce(Vector2.up * JumpForce);
-                isGrounded = false;
-                noOfJumps = 1;
-            }else if(noOfJumps == 1){
-                    RB.AddForce(Vector2.up * JumpForce);
-                    noOfJumps = 2;
-                    }
-                
-        }
-                
+  private void OnCollisionEnter2D(Collision2D collision)
+  {
+    if (collision.gameObject.CompareTag("Ground"))
+    {
+      if(_isGrounded == false) _isGrounded = true;
     }
-    private void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.CompareTag("Ground")){
-            if(isGrounded == false){
-                isGrounded = true;
-            }
-        }
-    }
+  }
 }
