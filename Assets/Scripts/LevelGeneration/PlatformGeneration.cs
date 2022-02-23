@@ -1,18 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Voxell.Inspector;
 
 public class PlatformGeneration : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  [SerializeField, Tooltip("Reference to game manager.")] private GameManager _gameManager;
+  [SerializeField] private GameObject _platformPrefab;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  [SerializeField] private PlatformConfig _widthConfig = new PlatformConfig(0.1f, 5.0f, 10.0f);
+  [SerializeField] private PlatformConfig _heightConfig = new PlatformConfig(0.3f, 1.0f, 5.0f);
+
+  // a storage of platform objects to be enabled/disabled
+  private GameObject[] _platformPool;
+
+  private void Awake()
+  {
+    _widthConfig.ReSeed();
+    _heightConfig.ReSeed();
+  }
+
+  private void Update()
+  {
+    // 
+  }
 }

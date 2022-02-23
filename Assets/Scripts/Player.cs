@@ -1,9 +1,11 @@
 using UnityEngine;
+using Voxell.Inspector;
 
 public class Player : MonoBehaviour
 {
+  [SerializeField] private LayerMask _groundLayer;
   [SerializeField] private float _jumpForce;
-  [SerializeField] private bool _isGrounded = false;
+  [SerializeField, InspectOnly] private bool _isGrounded = false;
   private int _noOfJumps = 0;
 
   private Rigidbody2D _rigidbody;
@@ -35,9 +37,8 @@ public class Player : MonoBehaviour
 
   private void OnCollisionEnter2D(Collision2D collision)
   {
-    if (collision.gameObject.CompareTag("Ground"))
-    {
-      if(_isGrounded == false) _isGrounded = true;
-    }
+    // if it hits the ground, set the _isGrounded toggle to true
+    if ((1 << collision.gameObject.layer & _groundLayer.value) != 0)
+      _isGrounded = true;
   }
 }
