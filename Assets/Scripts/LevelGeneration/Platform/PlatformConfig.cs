@@ -22,7 +22,7 @@ public struct PlatformConfig
 
   public void ReSeed() => _seed = Random.Range(0.0f, 1000.0f);
 
-  public float GetRandomWidth()
+  public float GetRandomLength()
   {
     float noise = Mathf.PerlinNoise(_noiseInput, _seed);
     _noiseInput += _increment;

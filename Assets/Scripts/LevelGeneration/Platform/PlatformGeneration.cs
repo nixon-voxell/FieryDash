@@ -13,6 +13,7 @@ public class PlatformGeneration : MonoBehaviour
 
   // a storage of platform objects to be enabled/disabled
   private Platform[] _platformPool;
+  private int _platformIdx;
 
   private void Awake()
   {
@@ -23,6 +24,7 @@ public class PlatformGeneration : MonoBehaviour
       GameObject platformObj = Instantiate<GameObject>(_platformPrefab, transform);
       platformObj.SetActive(false);
       _platformPool[p] = platformObj.GetComponent<Platform>();
+      _platformPool[p].Init(ref _gameManager);
     }
   }
 
@@ -34,5 +36,25 @@ public class PlatformGeneration : MonoBehaviour
 
   private void Update()
   {
+    // GenerateNextPlatform();
+  }
+
+  [Button]
+  private void GenerateNextPlatform()
+  {
+    _platformPool[_platformIdx].gameObject.SetActive(true);
+
+    float width, height;
+    GeneratePlatformWidthHeight(out width, out height);
+    _platformPool[_platformIdx].transform.localScale = new Vector3(width, height, 0.0f);
+
+    // modulo to round it up back to zero when max pool count is reached
+    _platformIdx = ++_platformIdx % PLATFORM_POOL_COUNT;
+  }
+
+  private void GeneratePlatformWidthHeight(out float width, out float height)
+  {
+    width = Mathf.RoundToInt(_widthConfig.GetRandomLength());
+    height = Mathf.RoundToInt(_heightConfig.GetRandomLength());
   }
 }

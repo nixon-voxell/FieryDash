@@ -9,6 +9,6 @@ public class GameManager : MonoBehaviour
   private float _currSpeed;
 
   // actual distance traveled by the player
-  private float DistTraveled => _distTraveled;
+  public float DistTraveled => _distTraveled;
   private float _distTraveled;
 }

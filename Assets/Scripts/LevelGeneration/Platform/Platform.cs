@@ -9,6 +9,11 @@ public class Platform : MonoBehaviour
     gameObject.SetActive(IsInScreen());
   }
 
+  public void Init(ref GameManager gameManager)
+  {
+    _gameManager = gameManager;
+  }
+
   private bool IsInScreen()
   {
     float platformEnd = transform.position.x + transform.localScale.x*0.5f;
