@@ -9,6 +9,13 @@ public class Platform : MonoBehaviour
     gameObject.SetActive(IsInScreen());
   }
 
+  private void LateUpdate()
+  {
+    transform.position = new Vector2(
+      transform.position.x - _gameManager.DeltaDist, transform.position.y
+    );
+  }
+
   public void Init(ref GameManager gameManager)
   {
     _gameManager = gameManager;

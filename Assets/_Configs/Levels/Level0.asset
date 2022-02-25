@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950f0c5bde22c264390c5f2bf1223e26, type: 3}
   m_Name: Level0
   m_EditorClassIdentifier: 
-  minSpeed: 0.02
-  maxSpeed: 0.1
+  minSpeed: 5
+  maxSpeed: 7
