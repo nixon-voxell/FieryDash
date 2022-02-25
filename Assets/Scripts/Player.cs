@@ -15,8 +15,7 @@ public class Player : MonoBehaviour
     _rigidbody = GetComponent<Rigidbody2D>();
   }
 
-
-  void Update()
+  private void Update()
   {
     if (Input.GetKeyDown(KeyCode.Space))
     {
