@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 2800000, guid: 77297862fad8a6d49abf9c7989970173, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _GrayscaleTex:
         m_Texture: {fileID: 2800000, guid: 200e2c86e27124943981b344dc7c8cfb, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -50,9 +54,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _AOPower: 0.5
+    - _AlphaPower: 0
     - _NormalStrength: 2
     - _TextureScale: 0.5
-    - _XScrolling: 36.142803
+    - _XScrolling: 0
     m_Colors:
     - _Color: {r: 0, g: 0.5365384, b: 0.8396226, a: 1}
   m_BuildTextureStacks: []

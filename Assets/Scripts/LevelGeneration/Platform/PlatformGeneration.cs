@@ -42,7 +42,7 @@ public class PlatformGeneration : MonoBehaviour
 
   private void Update()
   {
-    if (_lastPlatformReach < _gameManager.OffScreenLimit)
+    while (_lastPlatformReach < _gameManager.OffScreenLimit)
     {
       GenerateNextPlatform();
 
@@ -53,7 +53,7 @@ public class PlatformGeneration : MonoBehaviour
       _platformPool[_platformIdx].transform.position = new Vector2(newLocation, 0.0f);
 
       _lastPlatformReach = newLocation + _lastPlatformWidth*0.5f;
-      _lastPlatformReach += Random.Range(_minGap, _maxGap);
+      _lastPlatformReach += Mathf.RoundToInt(Random.Range(_minGap, _maxGap));
     }
   }
 
