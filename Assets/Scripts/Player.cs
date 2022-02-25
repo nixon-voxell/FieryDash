@@ -33,6 +33,10 @@ public class Player : MonoBehaviour
         _noOfJumps = 2;
       }
     }
+    if (Input.GetKeyDown(KeyCode.D))
+    {
+      _rigidbody.AddForce(Vector2.right * _jumpForce);       
+    }
   }
 
   private void OnCollisionEnter2D(Collision2D collision)
