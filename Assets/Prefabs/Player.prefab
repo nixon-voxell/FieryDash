@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1728418288528668017}
   - component: {fileID: 1728418288528668016}
   - component: {fileID: 1728418288528668023}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1280
+  m_InstanceId: -1272
 --- !u!61 &1728418288528668017
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -254,12 +254,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 1728418288528668016}
-  _groundLayer:
+  _solidLayer:
     serializedVersion: 2
     m_Bits: 64
-  _killableLayers:
+  _killableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   _jumpKeyCode: 32
   _dashKeyCode: 100
   _mass: 1
@@ -268,7 +268,12 @@ MonoBehaviour:
     y: -80
     z: 0
   _maxVelocity: 20
+  _damping: 0.98
   _jumpImpulse: 50
+  _dashImpulse: 100
+  _dashDuration: 0.1
+  _dashCooldown: 1
+  _jumpCount: 2
   _landOffset: 0.015
   _isGrounded: 0
   _groundDetected: 0

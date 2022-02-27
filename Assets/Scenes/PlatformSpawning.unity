@@ -248,7 +248,7 @@ MonoBehaviour:
   _scrollingMaterials:
   - {fileID: 2100000, guid: f2d75b6f4e75db04dad7ec232dac7d43, type: 2}
   - {fileID: 2100000, guid: 401e6bb259b61ff44badbe1f94ba38b7, type: 2}
---- !u!43 &368919970
+--- !u!43 &483717883
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -838,6 +838,6 @@ PrefabInstance:
     - target: {fileID: 5410971784877609622, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 368919970}
+      objectReference: {fileID: 483717883}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
