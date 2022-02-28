@@ -4,9 +4,6 @@ using Voxell.Inspector;
 
 public partial class PlayerMovement : MonoBehaviour
 {
-  [SerializeField] private GameManager _gameManager;
-  [Tooltip("Rigidbody will be activated when the player dies.")]
-  [SerializeField] private Rigidbody2D _rigidbody;
   [SerializeField] private LayerMask _solidLayer;
   [SerializeField] private LayerMask _killableLayer;
 
@@ -57,7 +54,6 @@ public partial class PlayerMovement : MonoBehaviour
 
   private void Start()
   {
-    _rigidbody.isKinematic = true;
     _down_boxCastSize = new Vector2(transform.localScale.x - _contactOffset, BOXCAST_HEIGHT);
     _right_boxCastSize = new Vector2(BOXCAST_HEIGHT, transform.localScale.y - _contactOffset);
     _halfHeight = transform.localScale.y*0.5f;
@@ -76,7 +72,6 @@ public partial class PlayerMovement : MonoBehaviour
 
   private void Die()
   {
-    _rigidbody.isKinematic = false;
   }
 
   private void OnCollisionEnter2D(Collision2D collision)
