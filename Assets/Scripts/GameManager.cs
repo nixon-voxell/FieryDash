@@ -78,4 +78,10 @@ public class GameManager : MonoBehaviour
     _targetSpeed = _levelSettings[levelIdx].minSpeed;
     _levelIdx = levelIdx;
   }
+
+  private void OnDisable()
+  {
+    for (int m=0; m < _scrollingMaterials.Length; m++)
+      _scrollingMaterials[m].SetFloat(XScrolling, 0.0f);
+  }
 }
