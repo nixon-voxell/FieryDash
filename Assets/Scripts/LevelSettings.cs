@@ -3,6 +3,6 @@ using UnityEngine;
 [CreateAssetMenu]
 public class LevelSettings : ScriptableObject
 {
-  public float minSpeed = 0.02f;
-  public float maxSpeed = 0.1f;
+  public float minSpeed = 1.0f;
+  public float maxSpeed = 2.0f;
 }
