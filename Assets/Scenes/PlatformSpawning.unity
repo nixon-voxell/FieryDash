@@ -843,8 +843,12 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1728418288528668023, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
+      propertyPath: _gameManager
+      value: 
+      objectReference: {fileID: 229713349}
+    - target: {fileID: 1728418288528668023, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
       propertyPath: _dashCooldown
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5410971784877609622, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
       propertyPath: m_Mesh

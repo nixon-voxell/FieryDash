@@ -4,6 +4,7 @@ using Voxell.Inspector;
 
 public partial class PlayerMovement : MonoBehaviour
 {
+  [SerializeField] private GameManager _gameManager;
   [SerializeField] private LayerMask _solidLayer;
   [SerializeField] private LayerMask _killableLayer;
 
@@ -72,6 +73,7 @@ public partial class PlayerMovement : MonoBehaviour
 
   private void Die()
   {
+    Debug.Log("Player died");
   }
 
   private void OnDrawGizmos()

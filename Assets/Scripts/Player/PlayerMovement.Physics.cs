@@ -22,6 +22,7 @@ public partial class PlayerMovement
   {
     float dt = Time.deltaTime;
     float3 currPosition = transform.position;
+    if (currPosition.y < 0.0f || currPosition.x < -_gameManager.OffScreenLimit) _dead = true;
     if (_dead) { Die(); return; }
 
     // reduce one addtional jumps if it is already on the air

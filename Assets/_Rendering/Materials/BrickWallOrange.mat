@@ -57,7 +57,7 @@ Material:
     - _AlphaPower: 0
     - _NormalStrength: 2
     - _TextureScale: 0.5
-    - _XScrolling: 30.88143
+    - _XScrolling: 2.6974535
     m_Colors:
     - _Color: {r: 0.38679248, g: 0.046415098, b: 0, a: 1}
   m_BuildTextureStacks: []

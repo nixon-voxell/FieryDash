@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     _incrementValue = 0.0f;
     _currSpeed = 0.0f;
     _distTraveled = 0.0f;
-    _offScreenLimit = _mainCamera.orthographicSize / 9 * 16 + 1;
+    _offScreenLimit = _mainCamera.orthographicSize / 9 * 16;
     _playerOriginXPos = _playerTransform.position.x;
   }
 
