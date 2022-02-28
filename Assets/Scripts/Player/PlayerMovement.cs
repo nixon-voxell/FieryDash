@@ -46,7 +46,7 @@ public partial class PlayerMovement : MonoBehaviour
   private bool _dead;
 
   // vars
-  private const float BOXCAST_HEIGHT = 0.1f;
+  private const float BOXCAST_THICKNESS = 0.1f;
   private float _halfHeight;
   private Vector2 _down_boxCastOrigin, _down_boxCastSize;
   private Vector2 _right_boxCastOrigin, _right_boxCastSize;
@@ -54,8 +54,8 @@ public partial class PlayerMovement : MonoBehaviour
 
   private void Start()
   {
-    _down_boxCastSize = new Vector2(transform.localScale.x - _contactOffset, BOXCAST_HEIGHT);
-    _right_boxCastSize = new Vector2(BOXCAST_HEIGHT, transform.localScale.y - _contactOffset);
+    _down_boxCastSize = new Vector2(transform.localScale.x - _contactOffset, BOXCAST_THICKNESS);
+    _right_boxCastSize = new Vector2(BOXCAST_THICKNESS, transform.localScale.y - _contactOffset);
     _halfHeight = transform.localScale.y*0.5f;
     _groundDetected = false;
 
@@ -72,12 +72,6 @@ public partial class PlayerMovement : MonoBehaviour
 
   private void Die()
   {
-  }
-
-  private void OnCollisionEnter2D(Collision2D collision)
-  {
-    // if it hits a killable obstacle, dies
-    if ((1 << collision.gameObject.layer & _killableLayer) != 0) Die();
   }
 
   private void OnDrawGizmos()

@@ -22,7 +22,7 @@ public partial class PlayerMovement
   {
     float dt = Time.deltaTime;
     float3 currPosition = transform.position;
-    if (_dead) return;
+    if (_dead) { Die(); return; }
 
     // reduce one addtional jumps if it is already on the air
     if (!_isGrounded) _jumpsMade = math.max(_jumpsMade, 1);
@@ -58,7 +58,7 @@ public partial class PlayerMovement
     if (_groundDetected)
     {
       float fallHeight = _initialPosition.y - _predPosition.y;
-      float corr = math.max(fallHeight - _down_raycastHit.distance - BOXCAST_HEIGHT*0.5f, 0.0f);
+      float corr = math.max(fallHeight - _down_raycastHit.distance - BOXCAST_THICKNESS*0.5f, 0.0f);
       _predPosition.y += corr;
     }
 
