@@ -7,10 +7,6 @@ public class Platform : MonoBehaviour
   private void Update()
   {
     gameObject.SetActive(IsInScreen());
-  }
-
-  private void LateUpdate()
-  {
     transform.position = new Vector2(
       transform.position.x - _gameManager.DeltaDist, transform.position.y
     );

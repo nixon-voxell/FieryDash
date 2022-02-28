@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
 
   private void Update()
   {
+    // keep increment value between 0 and 1
     _incrementValue = math.saturate(_incrementValue + Time.deltaTime*_incrementSpeed);
     _currSpeed = math.lerp(_currSpeed, _targetSpeed, _incrementalCurve.Evaluate(_incrementValue));
 

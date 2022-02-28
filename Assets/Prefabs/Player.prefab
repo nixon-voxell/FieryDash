@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b909dd91204874a8682905c98de034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 0}
   _rigidbody: {fileID: 1728418288528668016}
   _solidLayer:
     serializedVersion: 2
@@ -262,18 +263,20 @@ MonoBehaviour:
     m_Bits: 128
   _jumpKeyCode: 32
   _dashKeyCode: 100
-  _mass: 1
   _gravity:
     x: 0
     y: -80
     z: 0
   _maxVelocity: 20
   _damping: 0.98
+  _contactOffset: 0.02
+  _jumpCount: 2
   _jumpImpulse: 50
   _dashImpulse: 100
   _dashDuration: 0.1
   _dashCooldown: 1
-  _jumpCount: 2
-  _landOffset: 0.015
+  _dashDecayFactor: 0.89
   _isGrounded: 0
   _groundDetected: 0
+  _isObstructed: 0
+  _obstacleDetected: 0
