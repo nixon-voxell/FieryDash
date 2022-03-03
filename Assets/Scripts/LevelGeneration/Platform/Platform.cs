@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-  private GameManager _gameManager;
+  [SerializeField] private GameManager _gameManager;
 
   private void Update()
   {
     gameObject.SetActive(IsInScreen());
+    transform.position = new Vector2(
+      transform.position.x - _gameManager.DeltaDist, transform.position.y
+    );
   }
 
   public void Init(ref GameManager gameManager)
@@ -17,6 +20,6 @@ public class Platform : MonoBehaviour
   private bool IsInScreen()
   {
     float platformEnd = transform.position.x + transform.localScale.x*0.5f;
-    return platformEnd > -12.0f;
+    return platformEnd > -_gameManager.OffScreenLimit;
   }
 }
