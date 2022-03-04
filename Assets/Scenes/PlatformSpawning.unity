@@ -373,7 +373,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1728418288528668019, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
   m_PrefabInstance: {fileID: 1728418288196199356}
   m_PrefabAsset: {fileID: 0}
---- !u!43 &676373454
+--- !u!43 &972776330
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -849,6 +849,10 @@ PrefabInstance:
     - target: {fileID: 5410971784877609622, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 676373454}
+      objectReference: {fileID: 972776330}
+    - target: {fileID: 5410971784877609622, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
+      propertyPath: m_InstanceId
+      value: -1244
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
