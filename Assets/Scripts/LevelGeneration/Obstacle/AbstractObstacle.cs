@@ -21,7 +21,6 @@ public abstract class AbstractObstacle : MonoBehaviour
   /// <summary>Reset obstacle position, scale, and parent.</summary>
   public void Reinitialize()
   {
-    Debug.Log("Reinitialize");
     transform.SetParent(_spawner.transform);
     transform.position = Vector3.zero;
     transform.localScale = Vector3.one;
