@@ -6,7 +6,11 @@ public partial class PlayerMovement
   private void HandleJump()
   {
     if (!Input.GetKeyDown(_jumpKeyCode)) return;
-    if (_jumpsMade++ < _jumpCount) _velocity.y = _jumpImpulse;
+    if (_jumpsMade++ < _jumpCount)
+    {
+      _velocity.y = _jumpImpulse;
+      _squashStretchAnimator.Play("Jump");
+    } 
   }
 
   private void HandleDash()
@@ -40,6 +44,7 @@ public partial class PlayerMovement
     // remove downwards velocity if it is already grounded
     if (_isGrounded)
     {
+      _squashStretchAnimator.Play("Land");
       _velocity.y = math.max(_velocity.y, 0.0f);
       _jumpsMade = 0;
     }

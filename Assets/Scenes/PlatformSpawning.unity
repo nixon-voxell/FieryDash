@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &128703316 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1728418288528668022, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
+  m_PrefabInstance: {fileID: 1728418288196199356}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &181960514
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +484,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1728418288528668019, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
   m_PrefabInstance: {fileID: 1728418288196199356}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &631994537
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128703316}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 75a0c9e26d55d3647834223b2ed84ef2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &984286426
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,6 +979,10 @@ PrefabInstance:
       propertyPath: _gameManager
       value: 
       objectReference: {fileID: 229713349}
+    - target: {fileID: 1728418288528668023, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
+      propertyPath: _squashStretchAnimator
+      value: 
+      objectReference: {fileID: 631994537}
     - target: {fileID: 5410971784877609622, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
       propertyPath: m_Mesh
       value: 
