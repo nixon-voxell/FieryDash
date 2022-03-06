@@ -63,11 +63,11 @@ public partial class PlayerMovement
       _predPosition.y += corr;
     }
 
-    ObstacleCheck(_predPosition.xy);
-    if (_isObstructed)
+    ObstacleCheck(_initialPosition.xy);
+    if (_obstacleDetected)
     {
       Transform colliderTransform = _right_raycastHit.collider.transform;
-      float colliderWidth = colliderTransform.localScale.x;
+      float colliderWidth = _right_raycastHit.collider.bounds.size.x;
       float colliderPos = colliderTransform.position.x;
       float selfWidth = transform.localScale.x;
       float selfPos = _predPosition.x;

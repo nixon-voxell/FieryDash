@@ -2,12 +2,10 @@ using Unity.Mathematics;
 
 public struct PlatformGrid
 {
-  public const int UNBREAKABLE = 0;
-  public const int KILLABLE = 1;
-  public const int BREAKABLE = 2;
   public static readonly int3 emptyCell = new int3(-1, -1, -1);
 
   public int3[] gridMatrix;
+  public int UnitCount => gridMatrix.Length;
 
   public PlatformGrid(int gridLength)
   {
@@ -28,5 +26,10 @@ public struct PlatformGrid
     }
 
     return height;
+  }
+
+  public void InsertCell(int x, int y, ObstacleType obstacleType)
+  {
+    gridMatrix[x][y] = (int)obstacleType;
   }
 }

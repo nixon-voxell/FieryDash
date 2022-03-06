@@ -7,7 +7,7 @@ public abstract class AbstractObstacleSpawner : MonoBehaviour
   [SerializeField] private SpawnCondition[] _spawnConditions;
 
   private protected AbstractObstacle[] _obstaclePool;
-  private protected int _poolIdx;
+  private int _poolIdx;
 
   private protected virtual void Awake()
   {
@@ -24,9 +24,7 @@ public abstract class AbstractObstacleSpawner : MonoBehaviour
   }
 
   /// <summary>Generate obstacles based on the platform grid.</summary>
-  /// <param name="platformGrid">the platform grid</param>
-  /// <returns>new platform grid after generating new obstacles</returns>
-  public abstract PlatformGrid GenerateObstacle(ref PlatformGrid platformGrid);
+  public abstract void GenerateObstacle(ref PlatformGrid platformGrid, ref Platform platform);
 
   private protected int[] GenerateRandomIndices(int unitCount)
   {
@@ -52,7 +50,7 @@ public abstract class AbstractObstacleSpawner : MonoBehaviour
       int proposedIndex;
       do
       {
-        proposedIndex = Random.Range(0, unitCount + 1);
+        proposedIndex = Random.Range(0, unitCount);
       } while (ArrayContainsIndex(ref obstacleIndices, proposedIndex));
 
       obstacleIndices[o] = proposedIndex;
@@ -79,6 +77,7 @@ public abstract class AbstractObstacleSpawner : MonoBehaviour
 
   private protected virtual void OnValidate()
   {
+    if (_spawnConditions == null) return;
     int lastUnitCount = -1;
     for (int s=0; s < _spawnConditions.Length; s++)
     {

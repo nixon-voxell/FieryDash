@@ -78,7 +78,7 @@ public class PlatformGeneration : MonoBehaviour
     PlatformGrid platformGrid = new PlatformGrid((int)width);
     for (int s=0; s < spawners.Length; s++)
     {
-      spawners[s].GenerateObstacle(ref platformGrid);
+      spawners[s].GenerateObstacle(ref platformGrid, ref _platformPool[_platformIdx]);
     }
   }
 
