@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using Random = System.Random;
 using Random1= UnityEngine.Random;
-using System.Threading.Tasks;
+using System;
 
 public class PlacementOfKillableObstacles : MonoBehaviour
 {
@@ -12,68 +12,137 @@ public class PlacementOfKillableObstacles : MonoBehaviour
     
     //declaration
     public GameObject platform;
-    private int _rangeOfObstacles,_amountOfObstacles, _amountOfSlotsOnPlatform, _index = 0,_maxPosInt, _minPosInt, _posX, _count = 0, _tempPosX; 
+    private int _rangeOfObstacles,_amountOfObstacles, _amountOfSlotsOnPlatform;
+    private int  _index = 0, _posX;
     private int _platformStartPosition, _platformEndPosition;
     private float  _platformSize, _maxPos, _minPos;
     private Vector3 _platformPositionVector, _obstaclePosition;
     private GameObject  _platform;
     private GameObject[] _platformsList;
-    private List<int> _obstacleCheckingList = new List<int>();
-    private bool _isValid;
+    private List<int> _obstaclePositionList = new List<int>();
+    private bool _initialPlatform = true;
 
-    private void SpawnKillableObjects()
+     private void SpawnKillableObjects()
     {
+        //to avoid spawning at the first platform
+        // if (_index == 0 && _initialPlatform)
+        // {
+        //     _index +=1;
+        //     _initialPlatform = false;
+        //     return;
+        // }
+
         var random = new Random();
-        Debug.Log(_index);
+
         //get platform
         _platformsList = GameObject.FindGameObjectsWithTag("platform");
-        for (int i = 0; i< _platformsList.Length; i ++)
+        try 
         {
-            Debug.Log(_platformsList[i].transform.position);
+            _platform = _platformsList[_index];
         }
-        
-        _platform = _platformsList[_index];
-
-        //getting platform's information
-        _platformPositionVector = _platform.transform.position;
-        _platformSize = _platform.transform.localScale.x;
-        _amountOfSlotsOnPlatform = Mathf.RoundToInt(_platformSize);
-
-        //get amount of obstacles in a single platform
-        _rangeOfObstacles = 3;
-        if (_amountOfSlotsOnPlatform > 10)
+        catch (IndexOutOfRangeException)
         {
-            _rangeOfObstacles = 5;
-        }
-        _amountOfObstacles = random.Next(1, _rangeOfObstacles);
-
-        //get the max and min position
-        _platformStartPosition = Mathf.RoundToInt(_platformPositionVector.x - _platformSize / 2);
-        _platformEndPosition = Mathf.RoundToInt(_platformPositionVector.x + _platformSize / 2);
-
-        _obstaclePosition = _platformPositionVector;
-
-        for (int i = 0; i < _amountOfObstacles; i++)
-        {
-            _posX = random.Next(_platformStartPosition, _platformEndPosition);
-            _obstaclePosition.x = _posX;
-            _obstaclePosition.y = _platform.transform.position.y + _platform.transform.localScale.y / 2 + 0.5f;
-            objectPooler.SpawningFromPool("Square", _obstaclePosition, _platform);
+            return;
         }
 
-        //check position
-        // _obstacleCheckingList.Add(_posX);
-        // _isValid = true;
+        if (_platform.activeInHierarchy)
+        {
+            //getting platform's information
+            _platformPositionVector = _platform.transform.position;
+            _platformSize = _platform.transform.localScale.x;
+            _amountOfSlotsOnPlatform = Mathf.RoundToInt(_platformSize);
 
-        // if (_isValid)
+            //get amount of obstacles in a single platform
+            _rangeOfObstacles = 3;
+            if (_amountOfSlotsOnPlatform > 15)
+            {
+                _rangeOfObstacles = 5;
+            }
+            _amountOfObstacles = random.Next(1, _rangeOfObstacles);
+
+            //get the max and min position
+            _platformStartPosition = Mathf.RoundToInt(_platformPositionVector.x - _platformSize / 2 + 1);
+            _platformEndPosition = Mathf.RoundToInt(_platformPositionVector.x + _platformSize / 2 - 1);
+
+            //generate a list of position based on number of obstacles
+            for (int i = 0; i < _amountOfObstacles; i++)
+            {
+                _posX = random.Next(_platformStartPosition, _platformEndPosition);
+                //restrict 3 spike spawning together
+                if (i == 2)
+                {
+                    int _firstIndex = _obstaclePositionList[0];
+                    int _secondIndex = _obstaclePositionList[1];
+                    if ( _firstIndex + 1 == _secondIndex || _firstIndex + 2 == _secondIndex || _firstIndex - 1 == _secondIndex || _firstIndex - 2 == _secondIndex )
+                    {
+                        if (_secondIndex > _platformPositionVector.x  && _firstIndex > _platformPositionVector.x)
+                        {
+                            _posX = random.Next(_platformStartPosition, Mathf.RoundToInt(_platformPositionVector.x));
+                        }
+                        else 
+                        {
+                            _posX = random.Next(Mathf.RoundToInt(_platformPositionVector.x), _platformEndPosition);
+                        }
+                    }
+                }
+
+                //check if same position
+                _posX = CheckSamePosition(_posX);
+                _obstaclePositionList.Add(_posX);
+            }
+
+            //spawn for each obstacle
+            _obstaclePosition = _platformPositionVector;
+            foreach (int posX in _obstaclePositionList)
+            {
+                _obstaclePosition.x = posX;
+                _obstaclePosition.y = _platform.transform.position.y + _platform.transform.localScale.y / 2 + 0.5f;
+                objectPooler.SpawningFromPool("Spike", _obstaclePosition, _platform);
+            }
+            _obstaclePositionList.Clear();
+            _index +=1;
+        }
+        // if (_index == 9)
         // {
-        //     _obstaclePosition = _platformPositionVector;
-        //     _obstaclePosition.x = _posX;
-        //     _obstaclePosition.y = platform.transform.position.y + platform.transform.localScale.y / 2 + 0.5f;
-        //     objectPooler.SpawningFromPool("Square", _obstaclePosition, platform);
+        //     _index = 0;
+            // _platformsList.Clear();
         // }
-        _index +=1;
+    }   
+
+    private int CheckSamePosition(int position)
+    {
+        if (_obstaclePositionList.Count == 1)
+        {
+            return position;
+        }
+        var random = new Random();
+    
+        if (_obstaclePositionList.Contains(position))
+        {
+            if (position == _platformStartPosition)
+            {
+                position = random.Next(_platformStartPosition + 1, _platformEndPosition);
+            }
+            else if (position == _platformEndPosition)
+            {
+                position = random.Next(_platformStartPosition, _platformEndPosition - 1);
+            }
+            else if (position > _platformPositionVector.x)
+            {
+                position = random.Next(_platformStartPosition, Mathf.RoundToInt(_platformPositionVector.x));
+            }else if (position < _platformPositionVector.x)
+            {
+                position = random.Next(Mathf.RoundToInt(_platformPositionVector.x), _platformEndPosition);
+            }
+
+            return position;
+        }else 
+        {
+            return position;
+        }
     }
+
+    //temporary method
     private void SpawnPlatform()
     {
         Vector3 pos = transform.position;
@@ -85,83 +154,19 @@ public class PlacementOfKillableObstacles : MonoBehaviour
         Vector3 platPos = pos;
         platPos.x = temp;
         GameObject newPlat = Instantiate(platform, platPos , Quaternion.identity) as GameObject;
-        newPlat.transform.localScale = new Vector3(Random1.Range(4,10),Random1.Range(1,4), 1);
+        newPlat.transform.localScale = new Vector3(Random1.Range(6,10),Random1.Range(1,4), 1);
         newPlat.gameObject.tag = "platform";
     }
-    void Start()
+    private void Start()
     {
         objectPooler = KillableObstaclesPool.Instance;
-        InvokeRepeating("SpawnPlatform",3f,3f);
-        InvokeRepeating("SpawnKillableObjects", 3.5f, 3.5f);
+        // InvokeRepeating("SpawnPlatform", 0.0f, 2.0f);
+        InvokeRepeating("SpawnKillableObjects",0.1f, 2.1f);
     }
-    void Update() 
+    private void Update()
     {
-        
-        //generate a position and spawn it 
 
-        // if (_index == _obstacleAmountList.Count)
-        // {
-        //     this.enabled = false;
-        // }
+    } 
+}
 
-
-            //restriction
-
-            // all the _isValid will be turn into something else
-            // if (_count != 0)
-            // {
-            //     if (_obstacleCheckingList.Contains(_tempPosX))
-            //     {
-            //         if (_posX < _maxPos/2)
-            //         {
-            //             _posX = random.Next(_tempPosX +2, _maxPosInt);
-            //             // _isValid = false;
-            //         }
-            //         else
-            //         {
-            //             _posX = random.Next(_minPosInt, _tempPosX - 1);
-            //             // _isValid = false;
-            //         }
-            //     }
-            //     if (_count >= 2)
-            //     {
-            //         //looping list and check position
-            //         _obstacleCheckingList.ForEach(delegate(int pos)
-            //         {
-            //             if (_obstacleCheckingList.Contains(pos + 1))
-            //             {
-            //                 if (_obstacleCheckingList.Contains(pos - 1))
-            //                 {
-            //                     _isValid = false;
-            //                 }
-            //                 else if (_obstacleCheckingList.Contains(pos + 2))
-            //                 {
-            //                     _isValid = false;
-            //                 }
-            //             }
-            //             if (_obstacleCheckingList.Contains(pos - 1))
-            //             {
-            //                 if (_obstacleCheckingList.Contains(pos - 2))
-            //                 {
-            //                     _isValid = false;
-            //                 }
-            //             }
-            //         });
-            //     }
-            // }
-            //to check previous position
-            // _tempPosX = _posX;
-
-            // //spawning 
-            // if (_isValid)
-            // {
-            //     _platform = _platformsList[_index];
-            //     _obstaclePosition = _platformPositionVectorList[_index];
-            //     _obstaclePosition.x = _posX;
-            //     _obstaclePosition.y = _platform.transform.position.y + _platform.transform.localScale.y/2  + 1.0f;
-            //     objectPooler.SpawningFromPool("Spike", _obstaclePosition, _platform);             
-            // }
-            //     _count += 1;
-    }
-}   
 
