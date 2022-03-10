@@ -7,7 +7,7 @@ public abstract class AbstractObstacle : MonoBehaviour
   /// <summary>Spawn in obstacle based on platform and spawn index.</summary>
   /// <param name="platform">target platform to spawn on</param>
   /// <param name="index">spawn index</param>
-  public virtual void Spawn(ref Platform platform, int index, int height)
+  public virtual void Spawn(ref Platform platform, int index, float height)
   {
     gameObject.SetActive(true);
     transform.SetParent(platform.transform);
