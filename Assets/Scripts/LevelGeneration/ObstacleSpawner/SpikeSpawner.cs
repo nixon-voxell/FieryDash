@@ -6,18 +6,11 @@ public class SpikeSpawner : AbstractObstacleSpawner
   private void CheckSpike(ref int[] array, ref PlatformGrid platformGrid)
   {
     Array.Sort(array);
-    for (int i=1; i<array.Length -1; i++)
+    for (int i=1; i < array.Length -1; i++)
     {
-      if (array[i] == (array[i-1] + 1) && array[i] == (array[i+1] - 1)) 
-      {
-        int index = array[i+1];
-        do
-        {
-          index = Random.Range(0, platformGrid.UnitCount);
-        } while (ArrayContainsIndex(ref array, index));
-        array[i+1] = index;
-      }
-
+      // check if there are 3 spikes in a row
+      if (array[i] == (array[i -1] + 1) && array[i] == (array[i+1] - 1))
+        array[i+1] = -1;
     }
   }
   
