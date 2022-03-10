@@ -10,7 +10,10 @@ public class WallSpawner : AbstractObstacleSpawner
     {
       platformGrid.InsertCell(indices[i], 0, ObstacleType.Unbreakable);
       int poolIdx = NextPoolIdx();
-      _obstaclePool[poolIdx].Spawn(ref platform, indices[i], 0);
+      _obstaclePool[poolIdx].Spawn(
+        ref platform, indices[i],
+        platform.transform.localScale.y*0.5f + transform.lossyScale.y*0.5f
+      );
     }
   }
 }
