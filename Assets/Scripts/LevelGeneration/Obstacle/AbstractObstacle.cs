@@ -23,7 +23,6 @@ public abstract class AbstractObstacle : MonoBehaviour
   {
     transform.SetParent(_spawner.transform);
     transform.position = Vector3.zero;
-    transform.localScale = Vector3.one;
     gameObject.SetActive(false);
   }
 }
