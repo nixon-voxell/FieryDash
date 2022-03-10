@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WallObstacle : AbstractObstacle
+public class CrateObstacle : AbstractObstacle
 {
   public override void Spawn(ref Platform platform, int index, int height)
   {
@@ -8,7 +8,7 @@ public class WallObstacle : AbstractObstacle
     Transform platformT = platform.transform;
     transform.position = new Vector3(
       platformT.position.x - platformT.localScale.x*0.5f + index + 0.5f,
-      height, 0.0f
+      platformT.localScale.y*0.5f + height + transform.lossyScale.y*0.5f, 0.0f
     );
   }
 }
