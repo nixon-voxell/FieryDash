@@ -3,15 +3,13 @@ using Unity.Mathematics;
 
 public partial class PlayerMovement
 {
-  public Animator squashStretchAnimator;
-
   private void HandleJump()
   {
     if (!Input.GetKeyDown(_jumpKeyCode)) return;
     if (_jumpsMade++ < _jumpCount)
     {
       _velocity.y = _jumpImpulse;
-      squashStretchAnimator.SetTrigger("Jump");
+      _squashStretchAnimator.Play("Jump");
     } 
   }
 
@@ -46,7 +44,7 @@ public partial class PlayerMovement
     // remove downwards velocity if it is already grounded
     if (_isGrounded)
     {
-      squashStretchAnimator.SetTrigger("Land");
+      _squashStretchAnimator.Play("Land");
       _velocity.y = math.max(_velocity.y, 0.0f);
       _jumpsMade = 0;
     }
@@ -70,11 +68,11 @@ public partial class PlayerMovement
       _predPosition.y += corr;
     }
 
-    ObstacleCheck(_predPosition.xy);
-    if (_isObstructed)
+    ObstacleCheck(_initialPosition.xy);
+    if (_obstacleDetected)
     {
       Transform colliderTransform = _right_raycastHit.collider.transform;
-      float colliderWidth = colliderTransform.localScale.x;
+      float colliderWidth = _right_raycastHit.collider.bounds.size.x;
       float colliderPos = colliderTransform.position.x;
       float selfWidth = transform.localScale.x;
       float selfPos = _predPosition.x;

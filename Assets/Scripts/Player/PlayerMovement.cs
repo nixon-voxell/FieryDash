@@ -20,6 +20,7 @@ public partial class PlayerMovement : MonoBehaviour
   [SerializeField] private float _contactOffset = 0.015f;
 
   [Header("Movement Settings")]
+  [SerializeField] private Animator _squashStretchAnimator;
   [SerializeField, Range(1, 3)] private int _jumpCount = 2;
   [SerializeField] private float _jumpImpulse;
   [SerializeField] private float _dashImpulse;
