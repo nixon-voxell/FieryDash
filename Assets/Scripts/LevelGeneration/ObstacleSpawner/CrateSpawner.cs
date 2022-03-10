@@ -7,20 +7,14 @@ public class CrateSpawner : AbstractObstacleSpawner
   private void CheckGridHeight(ref int[] array, ref PlatformGrid platformGrid)
   {
     Array.Sort(array);
-    for (int i=1;i<array.Length -1;i++)
+    for (int i=1; i < array.Length -1; i++)
     {
-      if (array[i] == (array[i -1] + 1) && array[i] == (array[i+1] - 1)) 
-      {
-        int index = array[i+1];
-        do
-        {
-          index = Random.Range(0,platformGrid.UnitCount+1);
-        }while (ArrayContainsIndex(ref array, index));
-        array[i+1] = index;
-      }
-
+      // check if there are 3 spikes in a row
+      if (array[i] == (array[i -1] + 1) && array[i] == (array[i+1] - 1))
+        array[i+1] = -1;
     }
   }
+
   public override void GenerateObstacle(ref PlatformGrid platformGrid, ref Platform platform)
   {
     int[] indices = GenerateRandomIndices(platformGrid.UnitCount);
@@ -29,6 +23,8 @@ public class CrateSpawner : AbstractObstacleSpawner
 
     for (int i = 0; i < indices.Length; i++)
     {
+      if (indices[i] == -1) continue;
+
       int height = platformGrid.GetGridHeightAtUnit(indices[i]);
       if (height < 2)
       {
