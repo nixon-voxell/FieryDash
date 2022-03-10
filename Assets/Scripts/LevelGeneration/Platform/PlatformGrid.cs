@@ -28,6 +28,11 @@ public struct PlatformGrid
     return height;
   }
 
+  public int3[] GetGridMatrix()
+  {
+    return gridMatrix;
+  }
+
   public void InsertCell(int x, int y, ObstacleType obstacleType)
   {
     gridMatrix[x][y] = (int)obstacleType;
