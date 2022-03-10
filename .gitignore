@@ -4,6 +4,7 @@ checkpoints/
 inference/
 env/
 temp/
+Assets/.DS_Store
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #
@@ -57,6 +58,7 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.flp
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -99,8 +101,8 @@ crashlytics-build.properties
 
 # audio files
 AudioClips/
-*.mp3
-*.wav
+# *.mp3
+# *.wav
 *.audio
 
 # license

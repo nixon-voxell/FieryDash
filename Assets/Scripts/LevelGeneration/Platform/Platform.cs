@@ -6,7 +6,13 @@ public class Platform : MonoBehaviour
 
   private void Update()
   {
-    gameObject.SetActive(IsInScreen());
+    if (IsOffScreen())
+    {
+      gameObject.SetActive(false);
+      AbstractObstacle[] obstacles = transform.GetComponentsInChildren<AbstractObstacle>();
+      for (int o=0; o < obstacles.Length; o++)
+        obstacles[o].Reinitialize();
+    }
     transform.position = new Vector2(
       transform.position.x - _gameManager.DeltaDist, transform.position.y
     );
@@ -17,9 +23,9 @@ public class Platform : MonoBehaviour
     _gameManager = gameManager;
   }
 
-  private bool IsInScreen()
+  private bool IsOffScreen()
   {
     float platformEnd = transform.position.x + transform.localScale.x*0.5f;
-    return platformEnd > -_gameManager.OffScreenLimit;
+    return platformEnd < -_gameManager.OffScreenLimit;
   }
 }

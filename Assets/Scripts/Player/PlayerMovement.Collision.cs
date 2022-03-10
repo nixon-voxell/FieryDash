@@ -14,7 +14,7 @@ public partial class PlayerMovement
     _groundDetected = collider != null;
     _isGrounded = _down_raycastHit.distance < _contactOffset && _groundDetected;
 
-    if (_groundDetected) _dead = CollisionIsLayer(collider.gameObject.layer, in _killableLayer);
+    if (_isGrounded) _dead = CollisionIsLayer(collider.gameObject.layer, in _killableLayer);
   }
 
   private void ObstacleCheck(in float2 position)
