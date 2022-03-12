@@ -74,6 +74,7 @@ public class PlatformGeneration : MonoBehaviour
     GeneratePlatformWidthHeight(out width, out height);
     _platformPool[_platformIdx].transform.localScale = new Vector3(width, height, 0.0f);
 
+    if (!_gameManager.GameStarted) return;
     // generate obstacles
     PlatformGrid platformGrid = new PlatformGrid((int)width);
     for (int s=0; s < spawners.Length; s++)

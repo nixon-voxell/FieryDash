@@ -4,6 +4,8 @@ using Voxell.Inspector;
 
 public partial class PlayerMovement : MonoBehaviour
 {
+  private static readonly int UpperBending = Shader.PropertyToID("_UpperBending");
+
   [SerializeField] private GameManager _gameManager;
   [SerializeField] private LayerMask _solidLayer;
   [SerializeField] private LayerMask _killableLayer;
@@ -25,6 +27,7 @@ public partial class PlayerMovement : MonoBehaviour
   [SerializeField] private float _jumpImpulse;
   [SerializeField] private float _dashImpulse;
   [SerializeField] private float _dashDuration;
+  public float DashCooldown => _dashCooldown;
   [SerializeField] private float _dashCooldown;
   [SerializeField, Range(0.0f, 1.0f)] private float _dashDecayFactor = 0.6f;
 
@@ -53,6 +56,9 @@ public partial class PlayerMovement : MonoBehaviour
   private Vector2 _down_boxCastOrigin, _down_boxCastSize;
   private Vector2 _right_boxCastOrigin, _right_boxCastSize;
   private RaycastHit2D _down_raycastHit, _right_raycastHit;
+
+  [Header("Bending")]
+  [SerializeField] private BendingMaterial[] _bendingMaterials;
 
   private void Start()
   {
@@ -93,6 +99,29 @@ public partial class PlayerMovement : MonoBehaviour
       Gizmos.DrawLine(_right_boxCastOrigin, _right_raycastHit.point);
       Gizmos.color = Color.green;
       Gizmos.DrawWireCube(_right_raycastHit.point, _right_boxCastSize);
+    }
+  }
+
+  private void UpdateBendingMaterials()
+  {
+    for (int bm=0; bm < _bendingMaterials.Length; bm++)
+    {
+      _bendingMaterials[bm].material.SetFloat(
+        UpperBending, math.lerp(
+          _bendingMaterials[bm].restPosition,
+          _bendingMaterials[bm].bendingPosition,
+          math.saturate(_velocity.x))
+      );
+    }
+  }
+
+  private void OnDisable()
+  {
+    for (int bm=0; bm < _bendingMaterials.Length; bm++)
+    {
+      _bendingMaterials[bm].material.SetFloat(
+        UpperBending, _bendingMaterials[bm].restPosition
+      );
     }
   }
 }

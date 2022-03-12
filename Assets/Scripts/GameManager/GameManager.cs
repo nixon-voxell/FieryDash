@@ -1,8 +1,7 @@
 using UnityEngine;
 using Unity.Mathematics;
-using Voxell.Inspector;
 
-public class GameManager : MonoBehaviour
+public partial class GameManager : MonoBehaviour
 {
   [SerializeField] private AnimationCurve _incrementalCurve;
   [SerializeField] private float _incrementSpeed = 0.1f;
@@ -37,6 +36,9 @@ public class GameManager : MonoBehaviour
   public float OffScreenLimit => _offScreenLimit;
   private float _offScreenLimit;
 
+  public bool GameStarted => _gameStarted;
+  private bool _gameStarted;
+
   private void Awake()
   {
     _incrementValue = 0.0f;
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
     _distTraveled = 0.0f;
     _offScreenLimit = _mainCamera.orthographicSize / 9 * 16;
     _playerOriginXPos = _playerTransform.position.x;
+    _gameStarted = false;
   }
 
   private void Update()
@@ -76,22 +79,7 @@ public class GameManager : MonoBehaviour
     }
   }
 
-  [Button]
-  public void LoadLevel(int levelIdx = 0)
-  {
-    _incrementValue = 0.0f;
-    _targetSpeed = _levelSettings[levelIdx].minSpeed;
-    _levelIdx = levelIdx;
-  }
-
-  private void OnDisable()
-  {
-    for (int sm=0; sm < _scrollingMaterials.Length; sm++)
-    {
-      for (int m=0; m < _scrollingMaterials[sm].materials.Length; m++)
-      _scrollingMaterials[sm].materials[m].SetFloat(XScrolling, 0.0f);
-    }
-  }
+  private void OnDisable() => StopGame();
 }
 
 [System.Serializable]

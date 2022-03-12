@@ -88,5 +88,15 @@ public partial class PlayerMovement
     _velocity = math.clamp(_velocity, -_maxVelocity, _maxVelocity);
 
     transform.position = _predPosition;
+
+    UpdateBendingMaterials();
   }
+}
+
+[System.Serializable]
+public struct BendingMaterial
+{
+  public Material material;
+  public float restPosition;
+  public float bendingPosition;
 }
