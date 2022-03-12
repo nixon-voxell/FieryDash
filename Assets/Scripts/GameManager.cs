@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
   [SerializeField] private LevelSettings[] _levelSettings;
   [SerializeField] private Camera _mainCamera;
 
-  [SerializeField] Material[] _scrollingMaterials;
+  [SerializeField] ScrollingMaterial[] _scrollingMaterials;
   private static readonly int XScrolling = Shader.PropertyToID("_XScrolling");
 
   [SerializeField] Transform _playerTransform;
@@ -67,8 +67,13 @@ public class GameManager : MonoBehaviour
 
     _distTraveled += _deltaDist;
 
-    for (int m=0; m < _scrollingMaterials.Length; m++)
-      _scrollingMaterials[m].SetFloat(XScrolling, _distTraveled*0.5f);
+    for (int sm=0; sm < _scrollingMaterials.Length; sm++)
+    {
+      for (int m=0; m < _scrollingMaterials[sm].materials.Length; m++)
+      _scrollingMaterials[sm].materials[m].SetFloat(
+        XScrolling, _distTraveled*_scrollingMaterials[sm].speed*0.5f
+      );
+    }
   }
 
   [Button]
@@ -81,7 +86,17 @@ public class GameManager : MonoBehaviour
 
   private void OnDisable()
   {
-    for (int m=0; m < _scrollingMaterials.Length; m++)
-      _scrollingMaterials[m].SetFloat(XScrolling, 0.0f);
+    for (int sm=0; sm < _scrollingMaterials.Length; sm++)
+    {
+      for (int m=0; m < _scrollingMaterials[sm].materials.Length; m++)
+      _scrollingMaterials[sm].materials[m].SetFloat(XScrolling, 0.0f);
+    }
   }
+}
+
+[System.Serializable]
+public struct ScrollingMaterial
+{
+  public Material[] materials;
+  public float speed;
 }
