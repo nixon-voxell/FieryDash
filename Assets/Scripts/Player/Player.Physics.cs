@@ -1,8 +1,22 @@
 using UnityEngine;
 using Unity.Mathematics;
 
-public partial class PlayerMovement
+public partial class Player
 {
+  private bool _landed;
+  private bool _deathOccured;
+
+  public void Respawn()
+  {
+    transform.position = _startTransform.position;
+    transform.localScale = _startTransform.localScale;
+    transform.rotation = _startTransform.rotation;
+    _landed = false;
+    _deathOccured = false;
+
+    Start();
+  }
+
   private void HandleJump()
   {
     if (!Input.GetKeyDown(_jumpKeyCode)) return;
@@ -10,6 +24,7 @@ public partial class PlayerMovement
     {
       _velocity.y = _jumpImpulse;
       _squashStretchAnimator.Play("Jump");
+      _audioSource.PlayOneShot(_jumpClip);
     } 
   }
 
@@ -20,6 +35,7 @@ public partial class PlayerMovement
     _velocity.x += _dashImpulse;
     _dashTimer = _dashDuration;
     _dashCooldownTimer = _dashCooldown;
+    _audioSource.PlayOneShot(_dashClip);
   }
 
   private void LateUpdate()
@@ -27,7 +43,15 @@ public partial class PlayerMovement
     float dt = Time.deltaTime;
     float3 currPosition = transform.position;
     if (currPosition.y < 0.0f || currPosition.x < -_gameManager.OffScreenLimit) _dead = true;
-    if (_dead) { Die(); return; }
+    if (_dead)
+    {
+      if (!_deathOccured)
+      {
+        Die();
+        _deathOccured = true;
+      }
+      return;
+    } else _deathOccured = false;
 
     // reduce one addtional jumps if it is already on the air
     if (!_isGrounded) _jumpsMade = math.max(_jumpsMade, 1);
@@ -47,7 +71,12 @@ public partial class PlayerMovement
       _squashStretchAnimator.Play("Land");
       _velocity.y = math.max(_velocity.y, 0.0f);
       _jumpsMade = 0;
-    }
+      if (!_landed)
+      {
+        _audioSource.PlayOneShot(_landClip);
+        _landed = true;
+      }
+    } else _landed = false;
 
     // remove downwards velocity when dashing
     if (IsDashing)

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Mathematics;
 
-public partial class PlayerMovement
+public partial class Player
 {
   private void GroundCheck(in float2 position)
   {
