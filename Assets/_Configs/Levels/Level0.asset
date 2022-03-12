@@ -38,4 +38,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  totalDistance: 1000
+  startDistance: 0
+  endDistance: 500

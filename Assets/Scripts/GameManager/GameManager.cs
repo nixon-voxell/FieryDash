@@ -56,6 +56,25 @@ public partial class GameManager : MonoBehaviour
     _incrementValue = math.saturate(_incrementValue + dt*_incrementSpeed);
     _currSpeed = math.lerp(_currSpeed, _targetSpeed, _incrementalCurve.Evaluate(_incrementValue));
 
+    // target speed reached, now we increment speed based on distance
+    if (_gameStarted)
+    {
+      LevelSettings lvlSettings = _levelSettings[_levelIdx];
+      if (lvlSettings.endDistance <= lvlSettings.startDistance)
+      {
+        _targetSpeed = math.lerp(
+          lvlSettings.minSpeed,
+          lvlSettings.maxSpeed,
+          lvlSettings.transitionCurve.Evaluate(
+            (_distTraveled - lvlSettings.startDistance) / (lvlSettings.endDistance - lvlSettings.startDistance)
+          )
+        );
+      }
+
+      if (_distTraveled >= lvlSettings.endDistance && _levelIdx <= _levelSettings.Length)
+        _levelIdx++;
+    }
+
     _deltaDist = dt * _currSpeed;
 
     // if player is being offset to the front due to dash, move faster and move the player backwards
@@ -79,7 +98,7 @@ public partial class GameManager : MonoBehaviour
     }
   }
 
-  private void OnDisable() => StopGame();
+  private void OnDisable() => ResetMaterials();
 }
 
 [System.Serializable]

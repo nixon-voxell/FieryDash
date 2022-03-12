@@ -2,8 +2,15 @@ using UnityEngine;
 using Unity.Mathematics;
 using Voxell.Inspector;
 
-public partial class PlayerMovement : MonoBehaviour
+public partial class Player : MonoBehaviour
 {
+  private struct TransformStorage
+  {
+    public float3 position;
+    public float3 localScale;
+    public quaternion rotation;
+  }
+
   private static readonly int UpperBending = Shader.PropertyToID("_UpperBending");
 
   [SerializeField] private GameManager _gameManager;
@@ -60,6 +67,22 @@ public partial class PlayerMovement : MonoBehaviour
   [Header("Bending")]
   [SerializeField] private BendingMaterial[] _bendingMaterials;
 
+  [Header("Sound FX")]
+  [SerializeField] private AudioSource _audioSource;
+  [SerializeField] private AudioClip _jumpClip;
+  [SerializeField] private AudioClip _landClip;
+  [SerializeField] private AudioClip _dashClip;
+  [SerializeField] private AudioClip _dieClip;
+
+  private TransformStorage _startTransform;
+
+  private void Awake()
+  {
+    _startTransform.position = transform.position;
+    _startTransform.localScale = transform.localScale;
+    _startTransform.rotation = transform.rotation;
+  }
+
   private void Start()
   {
     _down_boxCastSize = new Vector2(transform.localScale.x - _contactOffset, BOXCAST_THICKNESS);
@@ -80,7 +103,8 @@ public partial class PlayerMovement : MonoBehaviour
 
   private void Die()
   {
-    Debug.Log("Player died");
+    _audioSource.PlayOneShot(_dieClip);
+    _gameManager.StopGame();
   }
 
   private void OnDrawGizmos()

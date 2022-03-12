@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CooldownTimer : MonoBehaviour
 {
-  [SerializeField] private PlayerMovement _playerMovement;
+  [SerializeField] private Player _player;
   [SerializeField] private Material _material;
 
   private static readonly int Cooldown = Shader.PropertyToID("_Cooldown");
@@ -11,7 +11,7 @@ public class CooldownTimer : MonoBehaviour
   {
     _material.SetFloat(
       Cooldown,
-      2.0f - _playerMovement.DashCooldownTimer/_playerMovement.DashCooldown*2.0f
+      2.0f - _player.DashCooldownTimer/_player.DashCooldown*2.0f
     );
   }
 
