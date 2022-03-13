@@ -124,4 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f454d0b71397cc4ca4801a4b6556256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPowerUpChance: 5
+  _spawnPowerUpChance: 1

@@ -5,16 +5,17 @@ using Random = System.Random;
 public class CrateObstacle : AbstractObstacle
 {
   [Header("PowerUp Config")]
-  [SerializeField, Range(1, 5)] private int _spawnPowerUpChance;
+  [SerializeField, Range(1, 100)] private int _spawnPowerUpChance;
   Random random = new Random();
   
-  public void DecidePowerUpSpawn()
+  public void DecidePowerUpSpawn(/*ref powerups*/)
   {
     int spawn = -1;
-    float[] _spawnPowerUpChanceList = {0.2f,0.4f,0.6f,0.8f,1.0f};
+    float spawnPowerUpChanceFloat = (float)_spawnPowerUpChance;
+    spawnPowerUpChanceFloat /= 100;
     double randomDouble = random.NextDouble();
     float randomFloat = (float) randomDouble;
-    if (randomFloat < _spawnPowerUpChanceList[_spawnPowerUpChance-1])
+    if (randomFloat < spawnPowerUpChanceFloat)
     {
       spawn = 1;
     }
@@ -24,7 +25,7 @@ public class CrateObstacle : AbstractObstacle
     }
     if (spawn == 1)
     {
-      PowerUps.SpawnPowerUps();
+      //spawnpowerup function
     }
   }
  
