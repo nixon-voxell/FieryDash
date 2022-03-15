@@ -7,6 +7,7 @@ public partial class GameManager : MonoBehaviour
   [SerializeField] private float _incrementSpeed = 0.1f;
   private float _incrementValue;
   [SerializeField] private LevelSettings[] _levelSettings;
+  [SerializeField] private float _distanceMultiplier;
   [SerializeField] private Camera _mainCamera;
 
   [SerializeField] ScrollingMaterial[] _scrollingMaterials;
@@ -21,11 +22,13 @@ public partial class GameManager : MonoBehaviour
   private int _levelIdx;
 
   // curr speed of the game
+  public float ScoreSpeed => _currSpeed * _distanceMultiplier;
   public float CurrSpeed => _currSpeed;
   private float _currSpeed;
   private float _targetSpeed;
 
   // actual distance traveled by the player
+  public int CurrScore => (int)(_distTraveled * _distanceMultiplier);
   public float DistTraveled => _distTraveled;
   private float _distTraveled;
 
@@ -60,18 +63,18 @@ public partial class GameManager : MonoBehaviour
     if (_gameStarted)
     {
       LevelSettings lvlSettings = _levelSettings[_levelIdx];
-      if (lvlSettings.endDistance <= lvlSettings.startDistance)
+      if (lvlSettings.endDistance <= (float)CurrScore)
       {
         _targetSpeed = math.lerp(
           lvlSettings.minSpeed,
           lvlSettings.maxSpeed,
           lvlSettings.transitionCurve.Evaluate(
-            (_distTraveled - lvlSettings.startDistance) / (lvlSettings.endDistance - lvlSettings.startDistance)
+            ((float)CurrScore - lvlSettings.startDistance) / (lvlSettings.endDistance - lvlSettings.startDistance)
           )
         );
       }
 
-      if (_distTraveled >= lvlSettings.endDistance && _levelIdx <= _levelSettings.Length)
+      if ((float)CurrScore >= lvlSettings.endDistance && _levelIdx <= _levelSettings.Length)
         _levelIdx++;
     }
 
