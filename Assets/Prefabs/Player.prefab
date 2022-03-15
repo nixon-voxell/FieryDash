@@ -5176,8 +5176,8 @@ MonoBehaviour:
   _obstacleDetected: 0
   _bendingMaterials:
   - material: {fileID: 2100000, guid: ffad3336711ccff4e840c4260ad95097, type: 2}
-    restPosition: 0.2
-    bendingPosition: -0.5
+    restPosition: 0
+    bendingPosition: 0.8
   - material: {fileID: 2100000, guid: d5ae05c8174962e489b1db56324bd810, type: 2}
     restPosition: 0
     bendingPosition: 1
