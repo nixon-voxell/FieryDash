@@ -1,16 +1,15 @@
 using System;
-using Random = UnityEngine.Random;
-using UnityEngine;
+
 public class SpikeSpawner : AbstractObstacleSpawner
 {
-  private void CheckSpike(ref int[] array, ref PlatformGrid platformGrid)
+  private void CheckSpike(ref int[] indices, ref PlatformGrid platformGrid)
   {
-    Array.Sort(array);
-    for (int i=1; i < array.Length -1; i++)
+    Array.Sort(indices);
+    for (int i=1; i < indices.Length -1; i++)
     {
       // check if there are 3 spikes in a row
-      if (array[i] == (array[i -1] + 1) && array[i] == (array[i+1] - 1))
-        array[i+1] = -1;
+      if (indices[i] == (indices[i -1] + 1) && indices[i] == (indices[i+1] - 1))
+        indices[i+1] = -1;
     }
   }
   
@@ -24,6 +23,7 @@ public class SpikeSpawner : AbstractObstacleSpawner
 
     for (int i = 0; i < indices.Length; i++)
     {
+      if (indices[i] == -1) continue;
       int height = platformGrid.GetGridHeightAtUnit(indices[i]);
       platformGrid.InsertCell(indices[i], height, ObstacleType.Killable);
       int poolIdx = NextPoolIdx();
