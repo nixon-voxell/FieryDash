@@ -6,17 +6,6 @@ public partial class Player
   private bool _landed;
   private bool _deathOccured;
 
-  public void Respawn()
-  {
-    transform.position = _startTransform.position;
-    transform.localScale = _startTransform.localScale;
-    transform.rotation = _startTransform.rotation;
-    _landed = false;
-    _deathOccured = false;
-
-    Start();
-  }
-
   private void HandleJump()
   {
     if (!Input.GetKeyDown(_jumpKeyCode)) return;

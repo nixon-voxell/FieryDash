@@ -102,6 +102,19 @@ public partial class Player : MonoBehaviour
     _dashTimer = 0.0f;
     _dashCooldownTimer = 0.0f;
     _dead = false;
+    _groundedTimer = 0.0f;
+    _isActualGrounded = false;
+  }
+
+  public void Respawn()
+  {
+    transform.position = _startTransform.position;
+    transform.localScale = _startTransform.localScale;
+    transform.rotation = _startTransform.rotation;
+    _landed = false;
+    _deathOccured = false;
+
+    Start();
   }
 
   private void Die()
