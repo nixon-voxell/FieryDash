@@ -39,7 +39,9 @@ public partial class Player : MonoBehaviour
   [SerializeField, Range(0.0f, 1.0f)] private float _dashDecayFactor = 0.6f;
 
   [Header("States")]
-  [SerializeField, InspectOnly] private bool _isGrounded;
+  [SerializeField] private float _groundedTime = 0.2f;
+  [SerializeField, InspectOnly] private float _groundedTimer;
+  public bool IsGrounded => _groundedTimer > 0.0f;
   [SerializeField, InspectOnly] private bool _groundDetected;
   [SerializeField, InspectOnly] private bool _isObstructed;
   [SerializeField, InspectOnly] private bool _obstacleDetected;
@@ -91,7 +93,6 @@ public partial class Player : MonoBehaviour
     _groundDetected = false;
 
     // initialize states
-    _isGrounded = false;
     _velocity = 0.0f;
     _initialPosition = transform.position;
     _predPosition = _initialPosition;

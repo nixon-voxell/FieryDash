@@ -12,7 +12,7 @@ public partial class Player
 
     Collider2D collider = _down_raycastHit.collider;
     _groundDetected = collider != null;
-    _isGrounded = _down_raycastHit.distance < _contactOffset && _groundDetected;
+    _groundedTimer = _down_raycastHit.distance < _contactOffset && _groundDetected ? _groundedTime : _groundedTimer;
   }
 
   private void ObstacleCheck(in float2 position)

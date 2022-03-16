@@ -54,7 +54,7 @@ public partial class Player
     } else _deathOccured = false;
 
     // reduce one addtional jumps if it is already on the air
-    if (!_isGrounded) _jumpsMade = math.max(_jumpsMade, 1);
+    if (!IsGrounded) _jumpsMade = math.max(_jumpsMade, 1);
 
     _initialPosition = currPosition;
     _predPosition = currPosition;
@@ -66,7 +66,7 @@ public partial class Player
     HandleDash();
 
     // remove downwards velocity if it is already grounded
-    if (_isGrounded)
+    if (IsGrounded)
     {
       _squashStretchAnimator.Play("Land");
       _velocity.y = math.max(_velocity.y, 0.0f);
@@ -109,6 +109,7 @@ public partial class Player
       _predPosition.x = math.min(_predPosition.x, corrPos);
     }
 
+    _groundedTimer -= dt;
     GroundCheck(_predPosition.xy);
 
     // udpate velocity
