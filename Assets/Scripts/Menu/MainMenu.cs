@@ -1,18 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame ()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+  [SerializeField] private CanvasGroup _gameplayGroup;
+  [SerializeField] private float _animateDuration;
 
-    public void QuitGame ()
+  [Header("Button")]
+  [SerializeField] private Transform[] _buttonTransforms;
+  [SerializeField] private float _buttonOutX;
+  private float _buttonInX;
+
+  [Header("Title")]
+  [SerializeField] private Transform _titleTransform;
+  [SerializeField] private float _titleOutY;
+  private float _titleInY;
+
+  private void Start()
+  {
+    _buttonInX = _buttonTransforms[0].localPosition.x;
+    _titleInY = _titleTransform.localPosition.y;
+  }
+
+  public void PlayGame()
+  {
+    SceneLoader.GameManager.LoadGame();
+
+    _titleTransform.LeanMoveLocalY(_titleOutY, _animateDuration).setEaseInBack();
+
+    float delayTime = 0.0f;
+    for (int b=0; b < _buttonTransforms.Length; b++)
     {
-        Debug.Log("Quit");
-        Application.Quit();
+      _buttonTransforms[b].LeanMoveLocalX(
+        _buttonOutX, _animateDuration
+      ).setDelay(delayTime).setEaseInBack();
+      delayTime += 0.2f;
     }
+    _gameplayGroup.LeanAlpha(1.0f, _animateDuration).setEaseOutQuad().setDelay(delayTime);
+  }
+
+  public void StopGame()
+  {
+    SceneLoader.GameManager.StopGame();
+    _gameplayGroup.LeanAlpha(0.0f, _animateDuration).setEaseOutQuad();
+  }
+
+  public void QuitGame()
+  {
+    Debug.Log("Quit");
+    Application.Quit();
+  }
 }

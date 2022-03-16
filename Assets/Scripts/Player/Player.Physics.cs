@@ -41,8 +41,9 @@ public partial class Player
   private void LateUpdate()
   {
     float dt = Time.deltaTime;
+    if (dt == 0.0f || !GameManager.GameStarted) return;
     float3 currPosition = transform.position;
-    if (currPosition.y < 0.0f || currPosition.x < -_gameManager.OffScreenLimit) _dead = true;
+    if (currPosition.y < 0.0f || currPosition.x < -SceneLoader.GameManager.OffScreenLimit) _dead = true;
     if (_dead)
     {
       if (!_deathOccured)
@@ -66,7 +67,7 @@ public partial class Player
     HandleDash();
 
     // remove downwards velocity if it is already grounded
-    if (IsGrounded)
+    if (_isActualGrounded)
     {
       _squashStretchAnimator.Play("Land");
       _velocity.y = math.max(_velocity.y, 0.0f);

@@ -4,8 +4,6 @@ public class PlatformGeneration : MonoBehaviour
 {
   private const int PLATFORM_POOL_COUNT = 10;
 
-  [SerializeField, Tooltip("Reference to game manager.")] private GameManager _gameManager;
-
   [Header("Platform Configurations")]
   [SerializeField] private GameObject _platformPrefab;
   [SerializeField] private PlatformConfig _widthConfig = new PlatformConfig(0.1f, 5.0f, 10.0f);
@@ -22,7 +20,7 @@ public class PlatformGeneration : MonoBehaviour
   private float _lastPlatformReach;
   private float _lastPlatformWidth;
 
-  private void Awake()
+  private void Start()
   {
     Init();
     _platformPool = new Platform[PLATFORM_POOL_COUNT];
@@ -31,9 +29,8 @@ public class PlatformGeneration : MonoBehaviour
       GameObject platformObj = Instantiate<GameObject>(_platformPrefab, transform);
       platformObj.SetActive(false);
       _platformPool[p] = platformObj.GetComponent<Platform>();
-      _platformPool[p].Init(ref _gameManager);
     }
-    _lastPlatformReach = -_gameManager.OffScreenLimit;
+    _lastPlatformReach = -SceneLoader.GameManager.OffScreenLimit;
     _lastPlatformWidth = 0.0f;
   }
 
@@ -45,7 +42,7 @@ public class PlatformGeneration : MonoBehaviour
 
   private void Update()
   {
-    while (_lastPlatformReach < _gameManager.OffScreenLimit)
+    while (_lastPlatformReach < SceneLoader.GameManager.OffScreenLimit)
     {
       GenerateNextPlatform();
       _lastPlatformWidth = _platformPool[_platformIdx].transform.localScale.x;
@@ -61,7 +58,7 @@ public class PlatformGeneration : MonoBehaviour
 
   private void LateUpdate()
   {
-    _lastPlatformReach -= _gameManager.DeltaDist;
+    _lastPlatformReach -= SceneLoader.GameManager.DeltaDist;
   }
 
   private void GenerateNextPlatform()
@@ -74,7 +71,7 @@ public class PlatformGeneration : MonoBehaviour
     GeneratePlatformWidthHeight(out width, out height);
     _platformPool[_platformIdx].transform.localScale = new Vector3(width, height, 0.0f);
 
-    if (!_gameManager.GameStarted) return;
+    if (!GameManager.GameStarted) return;
     // generate obstacles
     PlatformGrid platformGrid = new PlatformGrid((int)width);
     for (int s=0; s < spawners.Length; s++)

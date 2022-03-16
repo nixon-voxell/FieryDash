@@ -13,8 +13,9 @@ public partial class GameManager : MonoBehaviour
   [SerializeField] ScrollingMaterial[] _scrollingMaterials;
   private static readonly int XScrolling = Shader.PropertyToID("_XScrolling");
 
-  [SerializeField] Transform _playerTransform;
-  [SerializeField] float _resetPlayerXPosSpeed;
+  [SerializeField] public Transform playerTransform;
+  [SerializeField] public Player player;
+  [SerializeField] private float _resetPlayerXPosSpeed;
   private float _playerOriginXPos;
 
   // current level index
@@ -39,16 +40,16 @@ public partial class GameManager : MonoBehaviour
   public float OffScreenLimit => _offScreenLimit;
   private float _offScreenLimit;
 
-  public bool GameStarted => _gameStarted;
-  private bool _gameStarted;
+  public static bool GameStarted => _gameStarted;
+  private static bool _gameStarted;
 
-  private void Awake()
+  private void Start()
   {
     _incrementValue = 0.0f;
     _currSpeed = 0.0f;
     _distTraveled = 0.0f;
     _offScreenLimit = _mainCamera.orthographicSize / 9 * 16;
-    _playerOriginXPos = _playerTransform.position.x;
+    _playerOriginXPos = playerTransform.position.x;
     _gameStarted = false;
   }
 
@@ -81,13 +82,13 @@ public partial class GameManager : MonoBehaviour
     _deltaDist = dt * _currSpeed;
 
     // if player is being offset to the front due to dash, move faster and move the player backwards
-    float3 playerPos = _playerTransform.position;
+    float3 playerPos = playerTransform.position;
     if (playerPos.x > _playerOriginXPos)
     {
       float targetXPos = math.lerp(playerPos.x, _playerOriginXPos, dt * _resetPlayerXPosSpeed);
       _deltaDist += playerPos.x - targetXPos;
       playerPos.x = targetXPos;
-      _playerTransform.position = playerPos;
+      playerTransform.position = playerPos;
     }
 
     _distTraveled += _deltaDist;

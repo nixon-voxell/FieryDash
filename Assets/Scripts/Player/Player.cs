@@ -13,7 +13,6 @@ public partial class Player : MonoBehaviour
 
   private static readonly int UpperBending = Shader.PropertyToID("_UpperBending");
 
-  [SerializeField] private GameManager _gameManager;
   [SerializeField] private LayerMask _solidLayer;
   [SerializeField] private LayerMask _killableLayer;
 
@@ -39,6 +38,7 @@ public partial class Player : MonoBehaviour
   [SerializeField, Range(0.0f, 1.0f)] private float _dashDecayFactor = 0.6f;
 
   [Header("States")]
+  [SerializeField, InspectOnly] private bool _isActualGrounded;
   [SerializeField] private float _groundedTime = 0.2f;
   [SerializeField, InspectOnly] private float _groundedTimer;
   public bool IsGrounded => _groundedTimer > 0.0f;
@@ -83,6 +83,8 @@ public partial class Player : MonoBehaviour
     _startTransform.position = transform.position;
     _startTransform.localScale = transform.localScale;
     _startTransform.rotation = transform.rotation;
+    SceneLoader.GameManager.playerTransform = transform;
+    SceneLoader.GameManager.player = this;
   }
 
   private void Start()
@@ -105,7 +107,7 @@ public partial class Player : MonoBehaviour
   private void Die()
   {
     _audioSource.PlayOneShot(_dieClip);
-    _gameManager.StopGame();
+    SceneLoader.GameManager.StopGame();
   }
 
   private void OnDrawGizmos()
