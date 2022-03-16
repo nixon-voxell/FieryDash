@@ -115,6 +115,7 @@ public partial class Player : MonoBehaviour
     _deathOccured = false;
 
     Start();
+    ResetMaterials();
   }
 
   private void Die()
@@ -162,7 +163,9 @@ public partial class Player : MonoBehaviour
     }
   }
 
-  private void OnDisable()
+  private void OnDisable() => ResetMaterials();
+
+  private void ResetMaterials()
   {
     for (int bm=0; bm < _bendingMaterials.Length; bm++)
     {

@@ -49,6 +49,7 @@ MonoBehaviour:
   _pauseKey: 27
   _pauseMenuAnimation: {fileID: 0}
   _volumeManager: {fileID: 1988466946562757314}
+  gameStopper: {fileID: 0}
   _incrementalCurve:
     serializedVersion: 2
     m_Curve:
@@ -90,8 +91,8 @@ MonoBehaviour:
   - materials:
     - {fileID: 2100000, guid: 5f3b29f6d3ae1694482c73ca0bf1d9bf, type: 2}
     speed: 0.005
-  playerTransform: {fileID: 0}
   player: {fileID: 0}
+  platformGeneration: {fileID: 0}
   _resetPlayerXPosSpeed: 0.7
 --- !u!82 &4516701278493465432
 AudioSource:
