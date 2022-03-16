@@ -5147,7 +5147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b909dd91204874a8682905c98de034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 0}
   _solidLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -5170,7 +5169,9 @@ MonoBehaviour:
   _dashDuration: 0.1
   _dashCooldown: 1
   _dashDecayFactor: 0.89
-  _isGrounded: 0
+  _isActualGrounded: 0
+  _groundedTime: 0.2
+  _groundedTimer: 0
   _groundDetected: 0
   _isObstructed: 0
   _obstacleDetected: 0
@@ -5215,7 +5216,7 @@ AudioSource:
   m_GameObject: {fileID: 1728418288528668022}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5938905578245495271, guid: d215d222f32f4d54ba1dbe797c0eb89e, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

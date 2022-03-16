@@ -25,23 +25,23 @@ public class MainMenu : MonoBehaviour
   {
     SceneLoader.GameManager.LoadGame();
 
-    _titleTransform.LeanMoveLocalY(_titleOutY, _animateDuration).setEaseInBack();
+    _titleTransform.LeanMoveLocalY(_titleOutY, _animateDuration).setEaseInBack().setIgnoreTimeScale(true);
 
     float delayTime = 0.0f;
     for (int b=0; b < _buttonTransforms.Length; b++)
     {
       _buttonTransforms[b].LeanMoveLocalX(
         _buttonOutX, _animateDuration
-      ).setDelay(delayTime).setEaseInBack();
+      ).setDelay(delayTime).setEaseInBack().setIgnoreTimeScale(true);
       delayTime += 0.2f;
     }
-    _gameplayGroup.LeanAlpha(1.0f, _animateDuration).setEaseOutQuad().setDelay(delayTime);
+    _gameplayGroup.LeanAlpha(1.0f, _animateDuration).setEaseOutQuad().setDelay(delayTime).setIgnoreTimeScale(true);
   }
 
   public void StopGame()
   {
     SceneLoader.GameManager.StopGame();
-    _gameplayGroup.LeanAlpha(0.0f, _animateDuration).setEaseOutQuad();
+    _gameplayGroup.LeanAlpha(0.0f, _animateDuration).setEaseOutQuad().setIgnoreTimeScale(true);
   }
 
   public void QuitGame()

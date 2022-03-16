@@ -3,6 +3,12 @@ using Unity.Mathematics;
 
 public partial class GameManager : MonoBehaviour
 {
+  [Header("Pause Menu")]
+  [SerializeField] private KeyCode _pauseKey;
+  [SerializeField] private PopInAnimation _pauseMenuAnimation;
+  [SerializeField] private VolumeManager _volumeManager;
+
+  [Header("Game")]
   [SerializeField] private AnimationCurve _incrementalCurve;
   [SerializeField] private float _incrementSpeed = 0.1f;
   private float _incrementValue;
@@ -43,6 +49,9 @@ public partial class GameManager : MonoBehaviour
   public static bool GameStarted => _gameStarted;
   private static bool _gameStarted;
 
+  public static bool GamePaused => _gamePaused;
+  private static bool _gamePaused;
+
   private void Start()
   {
     _incrementValue = 0.0f;
@@ -51,14 +60,19 @@ public partial class GameManager : MonoBehaviour
     _offScreenLimit = _mainCamera.orthographicSize / 9 * 16;
     _playerOriginXPos = playerTransform.position.x;
     _gameStarted = false;
+    _gamePaused = false;
   }
 
   private void Update()
   {
     float dt = Time.deltaTime;
-    // keep increment value between 0 and 1
-    _incrementValue = math.saturate(_incrementValue + dt*_incrementSpeed);
-    _currSpeed = math.lerp(_currSpeed, _targetSpeed, _incrementalCurve.Evaluate(_incrementValue));
+
+    if (!_gamePaused)
+    {
+      // keep increment value between 0 and 1
+      _incrementValue = math.saturate(_incrementValue + dt*_incrementSpeed);
+      _currSpeed = math.lerp(_currSpeed, _targetSpeed, _incrementalCurve.Evaluate(_incrementValue));
+    }
 
     // target speed reached, now we increment speed based on distance
     if (_gameStarted)
@@ -77,6 +91,9 @@ public partial class GameManager : MonoBehaviour
 
       if ((float)CurrScore >= lvlSettings.endDistance && _levelIdx <= _levelSettings.Length)
         _levelIdx++;
+
+      if (Input.GetKeyDown(_pauseKey))
+        if (!_gamePaused) PauseGame();
     }
 
     _deltaDist = dt * _currSpeed;
@@ -103,6 +120,22 @@ public partial class GameManager : MonoBehaviour
   }
 
   private void OnDisable() => ResetMaterials();
+
+  public void ResumeGame()
+  {
+    Time.timeScale = 1.0f;
+    _gamePaused = false;
+    _pauseMenuAnimation.Close();
+    _volumeManager.DisablePauseCutoff();
+  }
+
+  public void PauseGame()
+  {
+    Time.timeScale = 0.0f;
+    _gamePaused = true;
+    _pauseMenuAnimation.Open();
+    _volumeManager.EnablePauseCutoff();
+  }
 }
 
 [System.Serializable]

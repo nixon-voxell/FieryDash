@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SettingsAnimation : MonoBehaviour
+public class PopInAnimation : MonoBehaviour
 {
   [SerializeField] private CanvasGroup _bgGroup;
   [SerializeField] private float _backgroundDarken = 0.5f;
@@ -20,9 +20,9 @@ public class SettingsAnimation : MonoBehaviour
   {
     _settingsBoard.LeanMoveLocal(new Vector3(
       _settingsBoard.localPosition.x, _boardInY, 0.0f
-    ), _animateDuration).setEaseOutBack();
+    ), _animateDuration).setEaseOutBack().setIgnoreTimeScale(true);
 
-    _bgGroup.LeanAlpha(_backgroundDarken, _animateDuration).setEaseOutQuad();
+    _bgGroup.LeanAlpha(_backgroundDarken, _animateDuration).setEaseOutQuad().setIgnoreTimeScale(true);
     _bgGroup.blocksRaycasts = true;
   }
 
@@ -30,9 +30,9 @@ public class SettingsAnimation : MonoBehaviour
   {
     _settingsBoard.LeanMoveLocal(new Vector3(
       _settingsBoard.localPosition.x, _boardOutY, 0.0f
-    ), _animateDuration).setEaseInBack();
+    ), _animateDuration).setEaseInBack().setIgnoreTimeScale(true);
 
-    _bgGroup.LeanAlpha(0.0f, _animateDuration).setEaseOutQuad();
+    _bgGroup.LeanAlpha(0.0f, _animateDuration).setEaseOutQuad().setIgnoreTimeScale(true);
     _bgGroup.blocksRaycasts = false;
   }
 }
