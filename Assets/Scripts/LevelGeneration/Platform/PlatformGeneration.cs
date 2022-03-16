@@ -20,6 +20,20 @@ public class PlatformGeneration : MonoBehaviour
   private float _lastPlatformReach;
   private float _lastPlatformWidth;
 
+  public void Reinitialize()
+  {
+    for (int p=0; p < PLATFORM_POOL_COUNT; p++)
+      _platformPool[p].Reinitialize();
+
+    _lastPlatformReach = -SceneLoader.GameManager.OffScreenLimit;
+    _lastPlatformWidth = 0.0f;
+  }
+
+  private void Awake()
+  {
+    SceneLoader.GameManager.platformGeneration = this;
+  }
+
   private void Start()
   {
     Init();

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
 using Voxell.Inspector;
@@ -83,7 +84,6 @@ public partial class Player : MonoBehaviour
     _startTransform.position = transform.position;
     _startTransform.localScale = transform.localScale;
     _startTransform.rotation = transform.rotation;
-    SceneLoader.GameManager.playerTransform = transform;
     SceneLoader.GameManager.player = this;
   }
 
@@ -108,6 +108,13 @@ public partial class Player : MonoBehaviour
   {
     _audioSource.PlayOneShot(_dieClip);
     SceneLoader.GameManager.StopGame();
+    StartCoroutine(PlayEndScene(2.0f));
+  }
+
+  private IEnumerator PlayEndScene(float delayTime)
+  {
+    yield return new WaitForSeconds(delayTime);
+    SceneLoader.GameManager.gameStopper.gameObject.SetActive(true);
   }
 
   private void OnDrawGizmos()

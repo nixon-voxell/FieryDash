@@ -38,10 +38,20 @@ public class MainMenu : MonoBehaviour
     _gameplayGroup.LeanAlpha(1.0f, _animateDuration).setEaseOutQuad().setDelay(delayTime).setIgnoreTimeScale(true);
   }
 
+  public void HideGameplayUI() => _gameplayGroup.alpha = 0.0f;
+
   public void StopGame()
   {
-    SceneLoader.GameManager.StopGame();
-    _gameplayGroup.LeanAlpha(0.0f, _animateDuration).setEaseOutQuad().setIgnoreTimeScale(true);
+    _titleTransform.LeanMoveLocalY(_titleInY, _animateDuration).setEaseOutBack().setIgnoreTimeScale(true);
+
+    float delayTime = 0.0f;
+    for (int b=0; b < _buttonTransforms.Length; b++)
+    {
+      _buttonTransforms[b].LeanMoveLocalX(
+        _buttonInX, _animateDuration
+      ).setDelay(delayTime).setEaseOutBack().setIgnoreTimeScale(true);
+      delayTime += 0.2f;
+    }
   }
 
   public void QuitGame()
