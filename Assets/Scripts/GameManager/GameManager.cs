@@ -3,6 +3,13 @@ using Unity.Mathematics;
 
 public partial class GameManager : MonoBehaviour
 {
+  [Header("Pause Menu")]
+  [SerializeField] private KeyCode _pauseKey;
+  [SerializeField] private PopInAnimation _pauseMenuAnimation;
+  [SerializeField] private VolumeManager _volumeManager;
+
+  [Header("Game")]
+  public GameStopper gameStopper;
   [SerializeField] private AnimationCurve _incrementalCurve;
   [SerializeField] private float _incrementSpeed = 0.1f;
   private float _incrementValue;
@@ -13,8 +20,9 @@ public partial class GameManager : MonoBehaviour
   [SerializeField] ScrollingMaterial[] _scrollingMaterials;
   private static readonly int XScrolling = Shader.PropertyToID("_XScrolling");
 
-  [SerializeField] Transform _playerTransform;
-  [SerializeField] float _resetPlayerXPosSpeed;
+  [SerializeField] public Player player;
+  [SerializeField] public PlatformGeneration platformGeneration;
+  [SerializeField] private float _resetPlayerXPosSpeed;
   private float _playerOriginXPos;
 
   // current level index
@@ -39,25 +47,33 @@ public partial class GameManager : MonoBehaviour
   public float OffScreenLimit => _offScreenLimit;
   private float _offScreenLimit;
 
-  public bool GameStarted => _gameStarted;
-  private bool _gameStarted;
+  public static bool GameStarted => _gameStarted;
+  private static bool _gameStarted;
 
-  private void Awake()
+  public static bool GamePaused => _gamePaused;
+  private static bool _gamePaused;
+
+  private void Start()
   {
     _incrementValue = 0.0f;
     _currSpeed = 0.0f;
     _distTraveled = 0.0f;
     _offScreenLimit = _mainCamera.orthographicSize / 9 * 16;
-    _playerOriginXPos = _playerTransform.position.x;
+    _playerOriginXPos = player.transform.position.x;
     _gameStarted = false;
+    _gamePaused = false;
   }
 
   private void Update()
   {
     float dt = Time.deltaTime;
-    // keep increment value between 0 and 1
-    _incrementValue = math.saturate(_incrementValue + dt*_incrementSpeed);
-    _currSpeed = math.lerp(_currSpeed, _targetSpeed, _incrementalCurve.Evaluate(_incrementValue));
+
+    if (!_gamePaused)
+    {
+      // keep increment value between 0 and 1
+      _incrementValue = math.saturate(_incrementValue + dt*_incrementSpeed);
+      _currSpeed = math.lerp(_currSpeed, _targetSpeed, _incrementalCurve.Evaluate(_incrementValue));
+    }
 
     // target speed reached, now we increment speed based on distance
     if (_gameStarted)
@@ -76,18 +92,21 @@ public partial class GameManager : MonoBehaviour
 
       if ((float)CurrScore >= lvlSettings.endDistance && _levelIdx <= _levelSettings.Length)
         _levelIdx++;
+
+      if (Input.GetKeyDown(_pauseKey))
+        if (!_gamePaused) PauseGame();
     }
 
     _deltaDist = dt * _currSpeed;
 
     // if player is being offset to the front due to dash, move faster and move the player backwards
-    float3 playerPos = _playerTransform.position;
+    float3 playerPos = player.transform.position;
     if (playerPos.x > _playerOriginXPos)
     {
       float targetXPos = math.lerp(playerPos.x, _playerOriginXPos, dt * _resetPlayerXPosSpeed);
       _deltaDist += playerPos.x - targetXPos;
       playerPos.x = targetXPos;
-      _playerTransform.position = playerPos;
+      player.transform.position = playerPos;
     }
 
     _distTraveled += _deltaDist;
@@ -102,6 +121,22 @@ public partial class GameManager : MonoBehaviour
   }
 
   private void OnDisable() => ResetMaterials();
+
+  public void ResumeGame()
+  {
+    Time.timeScale = 1.0f;
+    _gamePaused = false;
+    _pauseMenuAnimation.Close();
+    _volumeManager.DisablePauseCutoff();
+  }
+
+  public void PauseGame()
+  {
+    Time.timeScale = 0.0f;
+    _gamePaused = true;
+    _pauseMenuAnimation.Open();
+    _volumeManager.EnablePauseCutoff();
+  }
 }
 
 [System.Serializable]

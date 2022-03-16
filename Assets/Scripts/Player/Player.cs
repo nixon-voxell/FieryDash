@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
 using Voxell.Inspector;
@@ -13,7 +14,6 @@ public partial class Player : MonoBehaviour
 
   private static readonly int UpperBending = Shader.PropertyToID("_UpperBending");
 
-  [SerializeField] private GameManager _gameManager;
   [SerializeField] private LayerMask _solidLayer;
   [SerializeField] private LayerMask _killableLayer;
 
@@ -39,7 +39,10 @@ public partial class Player : MonoBehaviour
   [SerializeField, Range(0.0f, 1.0f)] private float _dashDecayFactor = 0.6f;
 
   [Header("States")]
-  [SerializeField, InspectOnly] private bool _isGrounded;
+  [SerializeField, InspectOnly] private bool _isActualGrounded;
+  [SerializeField] private float _groundedTime = 0.2f;
+  [SerializeField, InspectOnly] private float _groundedTimer;
+  public bool IsGrounded => _groundedTimer > 0.0f;
   [SerializeField, InspectOnly] private bool _groundDetected;
   [SerializeField, InspectOnly] private bool _isObstructed;
   [SerializeField, InspectOnly] private bool _obstacleDetected;
@@ -81,6 +84,7 @@ public partial class Player : MonoBehaviour
     _startTransform.position = transform.position;
     _startTransform.localScale = transform.localScale;
     _startTransform.rotation = transform.rotation;
+    SceneLoader.GameManager.player = this;
   }
 
   private void Start()
@@ -91,7 +95,6 @@ public partial class Player : MonoBehaviour
     _groundDetected = false;
 
     // initialize states
-    _isGrounded = false;
     _velocity = 0.0f;
     _initialPosition = transform.position;
     _predPosition = _initialPosition;
@@ -99,12 +102,33 @@ public partial class Player : MonoBehaviour
     _dashTimer = 0.0f;
     _dashCooldownTimer = 0.0f;
     _dead = false;
+    _groundedTimer = 0.0f;
+    _isActualGrounded = false;
+  }
+
+  public void Respawn()
+  {
+    transform.position = _startTransform.position;
+    transform.localScale = _startTransform.localScale;
+    transform.rotation = _startTransform.rotation;
+    _landed = false;
+    _deathOccured = false;
+
+    Start();
+    ResetMaterials();
   }
 
   private void Die()
   {
     _audioSource.PlayOneShot(_dieClip);
-    _gameManager.StopGame();
+    SceneLoader.GameManager.StopGame();
+    StartCoroutine(PlayEndScene(2.0f));
+  }
+
+  private IEnumerator PlayEndScene(float delayTime)
+  {
+    yield return new WaitForSeconds(delayTime);
+    SceneLoader.GameManager.gameStopper.gameObject.SetActive(true);
   }
 
   private void OnDrawGizmos()
@@ -139,7 +163,9 @@ public partial class Player : MonoBehaviour
     }
   }
 
-  private void OnDisable()
+  private void OnDisable() => ResetMaterials();
+
+  private void ResetMaterials()
   {
     for (int bm=0; bm < _bendingMaterials.Length; bm++)
     {

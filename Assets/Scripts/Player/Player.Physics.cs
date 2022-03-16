@@ -6,17 +6,6 @@ public partial class Player
   private bool _landed;
   private bool _deathOccured;
 
-  public void Respawn()
-  {
-    transform.position = _startTransform.position;
-    transform.localScale = _startTransform.localScale;
-    transform.rotation = _startTransform.rotation;
-    _landed = false;
-    _deathOccured = false;
-
-    Start();
-  }
-
   private void HandleJump()
   {
     if (!Input.GetKeyDown(_jumpKeyCode)) return;
@@ -41,8 +30,9 @@ public partial class Player
   private void LateUpdate()
   {
     float dt = Time.deltaTime;
+    if (dt == 0.0f || !GameManager.GameStarted) return;
     float3 currPosition = transform.position;
-    if (currPosition.y < 0.0f || currPosition.x < -_gameManager.OffScreenLimit) _dead = true;
+    if (currPosition.y < 0.0f || currPosition.x < -SceneLoader.GameManager.OffScreenLimit) _dead = true;
     if (_dead)
     {
       if (!_deathOccured)
@@ -54,7 +44,7 @@ public partial class Player
     } else _deathOccured = false;
 
     // reduce one addtional jumps if it is already on the air
-    if (!_isGrounded) _jumpsMade = math.max(_jumpsMade, 1);
+    if (!IsGrounded) _jumpsMade = math.max(_jumpsMade, 1);
 
     _initialPosition = currPosition;
     _predPosition = currPosition;
@@ -66,7 +56,7 @@ public partial class Player
     HandleDash();
 
     // remove downwards velocity if it is already grounded
-    if (_isGrounded)
+    if (_isActualGrounded)
     {
       _squashStretchAnimator.Play("Land");
       _velocity.y = math.max(_velocity.y, 0.0f);
@@ -109,6 +99,7 @@ public partial class Player
       _predPosition.x = math.min(_predPosition.x, corrPos);
     }
 
+    _groundedTimer -= dt;
     GroundCheck(_predPosition.xy);
 
     // udpate velocity

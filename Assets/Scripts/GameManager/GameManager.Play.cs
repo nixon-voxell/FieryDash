@@ -1,11 +1,7 @@
-using Voxell.Inspector;
-
 public partial class GameManager
 {
-  [Button]
   public void LoadGame(int levelIdx = 0)
   {
-    ResetMaterials();
     _incrementValue = 0.0f;
     _targetSpeed = _levelSettings[levelIdx].minSpeed;
     _levelIdx = levelIdx;
@@ -13,12 +9,19 @@ public partial class GameManager
     _gameStarted = true;
   }
 
-  [Button]
   public void StopGame()
   {
     _gameStarted = false;
     _targetSpeed = 0.0f;
     _gameStarted = false;
+  }
+
+  public void ReloadGame()
+  {
+    player.Respawn();
+    platformGeneration.Reinitialize();
+    ResetMaterials();
+    _distTraveled = 0.0f;
   }
 
   private void ResetMaterials()
