@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CrateObstacle : AbstractObstacle
 {
+  private AudioSource _audioSource;
+
   public override void Spawn(ref Platform platform, int index, float height)
   {
     base.Spawn(ref platform, index, height);
@@ -11,4 +13,7 @@ public class CrateObstacle : AbstractObstacle
       platformT.localScale.y*0.5f + height + transform.lossyScale.y*0.5f, 0.0f
     );
   }
+
+  public void DestroyCrate()
+  {}
 }

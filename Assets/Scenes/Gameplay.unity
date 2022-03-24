@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poolCount: 30
-  _obstaclePrefab: {fileID: 301018336822561391, guid: 4809d447cb991cc4ca4345946dab72b1, type: 3}
+  _obstaclePrefab: {fileID: 1196987119112377485, guid: ae51f3508c1f2464a86ffed0b1cbb943, type: 3}
   _spawnConditions:
   - unitCount: 5
     spawnRange: 1
