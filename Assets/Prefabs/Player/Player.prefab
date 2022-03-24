@@ -298,9 +298,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.127882, y: 0.09946346}
+  m_Offset: {x: -0.0027580261, y: 0.3000908}
   serializedVersion: 2
-  m_Radius: 0.5591792
+  m_Radius: 0.8029518
 --- !u!50 &764755137
 Rigidbody2D:
   serializedVersion: 4
@@ -318,7 +318,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
@@ -336,10 +336,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _solidLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   _killableLayer:
     serializedVersion: 2
     m_Bits: 128
+  _breakableLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _light: {fileID: 1728418288528668012}
+  _deathFX: {fileID: 0}
+  _renderers:
+  - {fileID: 102846890}
+  - {fileID: 1776698483}
   _jumpKeyCode: 32
   _dashKeyCode: 100
   _gravity:
@@ -374,6 +382,7 @@ MonoBehaviour:
   _landClip: {fileID: 8300000, guid: d6bdf1be8e7ed4041a64fe9e501dbe6a, type: 3}
   _dashClip: {fileID: 8300000, guid: 14d09a7bfbe4ef648b26d7f1936d9e44, type: 3}
   _dieClip: {fileID: 8300000, guid: a8f823c4fd1b23d4eab0f4648c8b95f6, type: 3}
+  _crateDestroyedClip: {fileID: 8300000, guid: 0249b275ea7484e4b8995b8d1ec7ff8e, type: 3}
 --- !u!95 &7178514093540917052
 Animator:
   serializedVersion: 4

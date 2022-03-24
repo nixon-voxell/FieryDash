@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class CrateObstacle : AbstractObstacle
 {
-  private AudioSource _audioSource;
+  [SerializeField] private Animator _animator;
+  [SerializeField] private BoxCollider2D _boxCollider;
 
   public override void Spawn(ref Platform platform, int index, float height)
   {
@@ -15,5 +16,8 @@ public class CrateObstacle : AbstractObstacle
   }
 
   public void DestroyCrate()
-  {}
+  {
+    _animator.Play("CrateDestroy");
+    _boxCollider.enabled = false;
+  }
 }

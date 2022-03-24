@@ -170,12 +170,10 @@ MonoBehaviour:
   _poolCount: 30
   _obstaclePrefab: {fileID: 1196987119112377485, guid: ae51f3508c1f2464a86ffed0b1cbb943, type: 3}
   _spawnConditions:
-  - unitCount: 5
-    spawnRange: 1
   - unitCount: 10
-    spawnRange: 2
+    spawnRange: 1
   - unitCount: 20
-    spawnRange: 3
+    spawnRange: 2
 --- !u!1 &186862339
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +370,11 @@ MonoBehaviour:
   - {fileID: 186862342}
   - {fileID: 1427458648}
   - {fileID: 102961774}
+--- !u!198 &1281909224 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 9022483214114504754, guid: 1236172e4dabee3459a296b2711d38fe, type: 3}
+  m_PrefabInstance: {fileID: 9022483215122702810}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1427458645
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +483,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1728418288528668023, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
+      propertyPath: _deathFX
+      value: 
+      objectReference: {fileID: 1281909224}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9338048f5558b641bfc4bece59920e0, type: 3}
 --- !u!1001 &5132689818918119345
@@ -593,6 +600,10 @@ PrefabInstance:
     - target: {fileID: 9022483214114504764, guid: 1236172e4dabee3459a296b2711d38fe, type: 3}
       propertyPath: m_Name
       value: DeathFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022483215279838967, guid: 1236172e4dabee3459a296b2711d38fe, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime2
+      value: 52428
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1236172e4dabee3459a296b2711d38fe, type: 3}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196987117560596262}
   - component: {fileID: 1196987117560596257}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box-resized_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196987117803082493}
   - component: {fileID: 1196987117803082492}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box-resized_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196987117840764237}
   - component: {fileID: 1196987117840764236}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box-resized_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196987118014790676}
   - component: {fileID: 1196987118014790679}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box-resized_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196987118293648546}
   - component: {fileID: 1196987118293648557}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box-resized_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196987118324384724}
   - component: {fileID: 1196987118324384727}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box-resized_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196987118542616369}
   - component: {fileID: 1196987118542616368}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box-resized_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196987118609796457}
   - component: {fileID: 1196987118609796456}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box-resized_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -682,7 +682,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196987118909141861}
   - component: {fileID: 1196987118909141860}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box-resized_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,7 +768,7 @@ GameObject:
   - component: {fileID: 1196987119112377484}
   - component: {fileID: 1196987119112377459}
   - component: {fileID: 267168970124064642}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -858,6 +858,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f454d0b71397cc4ca4801a4b6556256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 1196987119112377484}
+  _boxCollider: {fileID: 1196987119112377459}
 --- !u!1 &1196987119295478948
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196987119295478951}
   - component: {fileID: 1196987119295478950}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box-resized_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
