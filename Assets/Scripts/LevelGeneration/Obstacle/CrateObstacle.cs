@@ -13,6 +13,7 @@ public class CrateObstacle : AbstractObstacle
       platformT.position.x - platformT.localScale.x*0.5f + index + 0.5f,
       platformT.localScale.y*0.5f + height + transform.lossyScale.y*0.5f, 0.0f
     );
+    _animator.Play("Crate");
   }
 
   public void DestroyCrate()

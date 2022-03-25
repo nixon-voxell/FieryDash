@@ -202,9 +202,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7617d9b70ad82442dae005d4ff397fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _volumeSaver:
+    _filepath: VolumeData.json
   _masterMixer: {fileID: 24100000, guid: d215d222f32f4d54ba1dbe797c0eb89e, type: 2}
-  _initialSFXVolume: 0.7
-  _initialMusicVolume: 0.8
+  _volumeData:
+    fxVolume: 0.7
+    musicVolume: 0.6
   _volumeMultiplier: 30
   _pauseCutoff: 200
   _pauseCutoffSpeed: 5
