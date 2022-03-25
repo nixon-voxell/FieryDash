@@ -39,4 +39,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   startDistance: 0
-  endDistance: 500
+  endDistance: 10

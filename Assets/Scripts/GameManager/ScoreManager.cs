@@ -72,7 +72,9 @@ public class ScoreManager : MonoBehaviour
     _highScores.Reverse();
     if (_highScores.Count > MAX_SCORE_COUNT) _highScores.RemoveAt(MAX_SCORE_COUNT);
 
+    #if !UNITY_EDITOR
     _highScoreSaver.WriteData(new ScoreCollection(_highScores));
+    #endif
     UpdateHighScoreDisplay();
   }
 

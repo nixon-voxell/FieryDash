@@ -54,7 +54,9 @@ public class VolumeManager : MonoBehaviour
 
   public void SaveVolumeData()
   {
+    #if !UNITY_EDITOR
     _volumeSaver.WriteData(_volumeData);
+    #endif
   }
 
   public void EnablePauseCutoff()
