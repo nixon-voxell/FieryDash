@@ -425,7 +425,7 @@ MonoBehaviour:
   _heightConfig:
     _increment: 0.7
     _minLength: 8
-    _maxLength: 15
+    _maxLength: 14
   _minGap: 1
   _maxGap: 3
   spawners:
@@ -690,10 +690,6 @@ PrefabInstance:
     - target: {fileID: 9022483214114504764, guid: 1236172e4dabee3459a296b2711d38fe, type: 3}
       propertyPath: m_Name
       value: DeathFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 9022483215279838967, guid: 1236172e4dabee3459a296b2711d38fe, type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.atime2
-      value: 52428
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1236172e4dabee3459a296b2711d38fe, type: 3}

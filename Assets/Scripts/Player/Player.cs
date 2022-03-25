@@ -128,6 +128,7 @@ public partial class Player : MonoBehaviour
     transform.position = _startTransform.position;
     transform.localScale = _startTransform.localScale;
     transform.rotation = _startTransform.rotation;
+    _squashStretchAnimator.Play("Idle");
     _landed = false;
     _deathOccured = false;
 
