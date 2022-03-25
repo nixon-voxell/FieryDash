@@ -50,6 +50,16 @@ MonoBehaviour:
   _pauseKey: 27
   _pauseMenuAnimation: {fileID: 0}
   _volumeManager: {fileID: 1988466946562757314}
+  _audioSource: {fileID: 4516701278493465432}
+  _audioClips:
+  - {fileID: 8300000, guid: 94d71cd7fac7c5a4c85181cbb7c45f69, type: 3}
+  - {fileID: 8300000, guid: 78d57217cb9aff94b9c0d390fbc2b512, type: 3}
+  - {fileID: 8300000, guid: 34edd2ab7604e144896e6065c092fe92, type: 3}
+  - {fileID: 8300000, guid: ced43c23b7c472e4ebf407a5e3471988, type: 3}
+  - {fileID: 8300000, guid: 4494379c91aa4144aad30314ffd91754, type: 3}
+  - {fileID: 8300000, guid: 95039e73f6e253d4994ecbe40e3abb66, type: 3}
+  - {fileID: 8300000, guid: 0ed8432de9772ed49a1b1be0f8f1cc37, type: 3}
+  _audioClipIdx: 0
   gameStopper: {fileID: 0}
   _scoreManager: {fileID: 801975660022802559}
   _incrementalCurve:
@@ -110,8 +120,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -5412557042276781960, guid: d215d222f32f4d54ba1dbe797c0eb89e, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 78d57217cb9aff94b9c0d390fbc2b512, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 0.6
   m_Pitch: 1
   Loop: 0

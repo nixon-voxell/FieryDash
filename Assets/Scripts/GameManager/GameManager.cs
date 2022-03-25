@@ -1,12 +1,18 @@
 using UnityEngine;
 using Unity.Mathematics;
+using Voxell.Mathx;
+
+using Random = UnityEngine.Random;
 
 public partial class GameManager : MonoBehaviour
 {
-  [Header("Pause Menu")]
+  [Header("Menu & Managers")]
   [SerializeField] private KeyCode _pauseKey;
   [SerializeField] private PopInAnimation _pauseMenuAnimation;
   [SerializeField] private VolumeManager _volumeManager;
+  [SerializeField] private AudioSource _audioSource;
+  [SerializeField] private AudioClip[] _audioClips;
+  [SerializeField] private int _audioClipIdx;
 
   [Header("Game")]
   public GameStopper gameStopper;
@@ -65,6 +71,22 @@ public partial class GameManager : MonoBehaviour
     _playerOriginXPos = player.transform.position.x;
     _gameStarted = false;
     _gamePaused = false;
+    _audioClipIdx = 0;
+
+    MathUtil.ShuffleArray<AudioClip>(ref _audioClips, (uint)Random.Range(1, 100));
+    _audioSource.clip = _audioClips[_audioClipIdx];
+    _audioSource.Play();
+    NextAudioClipIdx();
+  }
+
+  private void LateUpdate()
+  {
+    if (_audioSource.isPlaying == false)
+    {
+      _audioSource.clip = _audioClips[_audioClipIdx];
+      _audioSource.Play();
+      NextAudioClipIdx();
+    }
   }
 
   private void Update()
@@ -141,6 +163,11 @@ public partial class GameManager : MonoBehaviour
     _gamePaused = true;
     _pauseMenuAnimation.Open();
     _volumeManager.EnablePauseCutoff();
+  }
+
+  private void NextAudioClipIdx()
+  {
+    _audioClipIdx = (_audioClipIdx + 1) % _audioClips.Length;
   }
 }
 
