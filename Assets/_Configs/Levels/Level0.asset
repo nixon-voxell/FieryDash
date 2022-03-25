@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level0
   m_EditorClassIdentifier: 
   minSpeed: 5
-  maxSpeed: 7
+  maxSpeed: 6.5
   transitionCurve:
     serializedVersion: 2
     m_Curve:
@@ -38,5 +38,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  startDistance: 0
-  endDistance: 10
+  startScore: 0
+  endScore: 100

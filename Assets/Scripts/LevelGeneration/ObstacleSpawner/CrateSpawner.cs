@@ -11,15 +11,26 @@ public class CrateSpawner : AbstractObstacleSpawner
     {
       int3[] gridMatrix = platformGrid.GridMatrix;
 
-      int height = platformGrid.GetGridHeightAtUnit(indices[i]);
+      int idx = math.clamp(indices[i], 1, platformGrid.UnitCount - 2);
+
+      int height = platformGrid.GetGridHeightAtUnit(idx);
+      if (height == 2) continue;
+
       if (height == 1)
       {
-        if (gridMatrix[indices[i]][0] != (int)ObstacleType.Killable)
+        // insert if the base block is a wall
+        if (gridMatrix[idx][0] != (int)ObstacleType.Killable)
         {
-          platformGrid.InsertCell(indices[i], height, ObstacleType.Breakable);
+          platformGrid.InsertCell(idx, height, ObstacleType.Breakable);
           int poolIdx = NextPoolIdx();
-          _obstaclePool[poolIdx].Spawn(ref platform, indices[i], height);
+          _obstaclePool[poolIdx].Spawn(ref platform, idx, height);
         }
+      } else if (gridMatrix[idx - 1][0] == -1 && gridMatrix[idx + 1][0] == -1)
+      {
+        // insert if there is no obstacle at the front and back of the block
+        platformGrid.InsertCell(idx, height, ObstacleType.Breakable);
+        int poolIdx = NextPoolIdx();
+        _obstaclePool[poolIdx].Spawn(ref platform, idx, height);
       }
     }
   }

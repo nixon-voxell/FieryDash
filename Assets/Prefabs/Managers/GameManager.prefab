@@ -80,6 +80,7 @@ MonoBehaviour:
   _levelSettings:
   - {fileID: 11400000, guid: 4026f99a792f51745b4b4a254cd6c955, type: 2}
   - {fileID: 11400000, guid: 031b02b42f6fd0c44a3f4bb014143ea9, type: 2}
+  - {fileID: 11400000, guid: b25590d93c066404c87723eb4cd6d85f, type: 2}
   _distanceMultiplier: 0.2
   _mainCamera: {fileID: 0}
   _scrollingMaterials:

@@ -37,7 +37,8 @@ public partial class GameManager : MonoBehaviour
   private float _targetSpeed;
 
   // actual distance traveled by the player
-  public int CurrScore => (int)(_distTraveled * _distanceMultiplier);
+  public int CurrScore => (int)(AccurateCurrScore);
+  public float AccurateCurrScore => _distTraveled * _distanceMultiplier;
   public float DistTraveled => _distTraveled;
   private float _distTraveled;
   private float _timeTaken;
@@ -81,18 +82,19 @@ public partial class GameManager : MonoBehaviour
     if (_gameStarted)
     {
       LevelSettings lvlSettings = _levelSettings[_levelIdx];
-      if (lvlSettings.endDistance <= (float)CurrScore)
+      if (AccurateCurrScore <= lvlSettings.endScore)
       {
         _targetSpeed = math.lerp(
           lvlSettings.minSpeed,
           lvlSettings.maxSpeed,
           lvlSettings.transitionCurve.Evaluate(
-            ((float)CurrScore - lvlSettings.startDistance) / (lvlSettings.endDistance - lvlSettings.startDistance)
+            (AccurateCurrScore - (float)lvlSettings.startScore) /
+            ((float)lvlSettings.endScore - (float)lvlSettings.startScore)
           )
         );
       }
 
-      if ((float)CurrScore >= lvlSettings.endDistance && _levelIdx <= _levelSettings.Length)
+      if (AccurateCurrScore >= lvlSettings.endScore && _levelIdx < _levelSettings.Length-1)
         _levelIdx++;
 
       if (Input.GetKeyDown(_pauseKey))
