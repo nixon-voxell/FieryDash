@@ -91,6 +91,9 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 95bd4d1a7702bee4bbd6e6584a88021b, type: 2}
     speed: 0.02
   - materials:
+    - {fileID: 2100000, guid: 91a03d49fbd4a7b4b85b802fbf50079a, type: 2}
+    speed: 0.01
+  - materials:
     - {fileID: 2100000, guid: 5f3b29f6d3ae1694482c73ca0bf1d9bf, type: 2}
     speed: 0.005
   player: {fileID: 0}
@@ -210,6 +213,8 @@ MonoBehaviour:
   _volumeData:
     fxVolume: 0.7
     musicVolume: 0.6
+  _fxSlider: {fileID: 0}
+  _musicSlider: {fileID: 0}
   _volumeMultiplier: 30
   _pauseCutoff: 200
   _pauseCutoffSpeed: 5

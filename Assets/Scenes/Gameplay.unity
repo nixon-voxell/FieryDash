@@ -424,8 +424,8 @@ MonoBehaviour:
     _maxLength: 21
   _heightConfig:
     _increment: 0.7
-    _minLength: 2
-    _maxLength: 10
+    _minLength: 8
+    _maxLength: 15
   _minGap: 1
   _maxGap: 3
   spawners:
@@ -562,6 +562,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1225292698709016040, guid: 431229e5e2fe2794a818a01f3451d191, type: 3}
+      propertyPath: m_Color.b
+      value: 0.0901
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225292698709016040, guid: 431229e5e2fe2794a818a01f3451d191, type: 3}
+      propertyPath: m_Color.g
+      value: 0.106000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225292698709016040, guid: 431229e5e2fe2794a818a01f3451d191, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132689818949251854, guid: 431229e5e2fe2794a818a01f3451d191, type: 3}
+      propertyPath: m_Color.b
+      value: 0.09803921
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132689818949251854, guid: 431229e5e2fe2794a818a01f3451d191, type: 3}
+      propertyPath: m_Color.g
+      value: 0.10980392
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132689818949251854, guid: 431229e5e2fe2794a818a01f3451d191, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5132689819831144332, guid: 431229e5e2fe2794a818a01f3451d191, type: 3}
       propertyPath: m_Name
       value: BGArt
