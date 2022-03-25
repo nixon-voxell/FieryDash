@@ -48,6 +48,6 @@ Material:
     - _VoronoiNoiseSpeed: -1
     - _VoronoiPower: 2
     m_Colors:
-    - _BaseColor: {r: 2.792157, g: 0.1568628, b: 0, a: 1}
+    - _BaseColor: {r: 3.7277486, g: 0.2146871, b: 0, a: 1}
     - _TipColor: {r: 16, g: 7.843137, b: 4.141177, a: 1}
   m_BuildTextureStacks: []

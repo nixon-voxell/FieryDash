@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.VFX;
 using Unity.Mathematics;
 using Voxell.Inspector;
 
@@ -14,8 +16,14 @@ public partial class Player : MonoBehaviour
 
   private static readonly int UpperBending = Shader.PropertyToID("_UpperBending");
 
+  private static readonly int Intensity = Shader.PropertyToID("Intensity");
   [SerializeField] private LayerMask _solidLayer;
   [SerializeField] private LayerMask _killableLayer;
+  [SerializeField] private LayerMask _breakableLayer;
+  [SerializeField] private Light2D _light;
+  [SerializeField] private ParticleSystem _deathFX;
+  [SerializeField] private GameObject[] _renderers;
+  [SerializeField] private VisualEffect _visualEffect;
 
   [Header("Input Action KeyCodes")]
   [SerializeField] private KeyCode _jumpKeyCode;
@@ -76,6 +84,7 @@ public partial class Player : MonoBehaviour
   [SerializeField] private AudioClip _landClip;
   [SerializeField] private AudioClip _dashClip;
   [SerializeField] private AudioClip _dieClip;
+  [SerializeField] private AudioClip _crateDestroyedClip;
 
   private TransformStorage _startTransform;
 
@@ -106,6 +115,14 @@ public partial class Player : MonoBehaviour
     _isActualGrounded = false;
   }
 
+  private void Update()
+  {
+    float dt = Time.deltaTime*2.0f;
+    if (!GameManager.GameStarted)
+      _light.intensity = Mathf.Lerp(_light.intensity, 0.0f, dt);
+    else _light.intensity = Mathf.Lerp(_light.intensity, 2.0f, dt);
+  }
+
   public void Respawn()
   {
     transform.position = _startTransform.position;
@@ -116,6 +133,7 @@ public partial class Player : MonoBehaviour
 
     Start();
     ResetMaterials();
+    for (int r=0; r < _renderers.Length; r++) _renderers[r].SetActive(true);
   }
 
   private void Die()
@@ -123,6 +141,11 @@ public partial class Player : MonoBehaviour
     _audioSource.PlayOneShot(_dieClip);
     SceneLoader.GameManager.StopGame();
     StartCoroutine(PlayEndScene(2.0f));
+    _deathFX.transform.position = transform.position;
+    _deathFX.Play(true);
+    _visualEffect.SetFloat(Intensity, 1.0f);
+
+    for (int r=0; r < _renderers.Length; r++) _renderers[r].SetActive(false);
   }
 
   private IEnumerator PlayEndScene(float delayTime)

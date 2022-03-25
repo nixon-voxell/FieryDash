@@ -25,7 +25,23 @@ public partial class Player
 
     Collider2D collider = _right_raycastHit.collider;
     _obstacleDetected = collider != null;
-    _isObstructed = _right_raycastHit.distance < _contactOffset && _obstacleDetected;
+
+    bool closeContact = false;
+    if (_obstacleDetected)
+    {
+      closeContact = _right_raycastHit.distance < _contactOffset;
+      if (CollisionIsLayer(collider.gameObject.layer, _breakableLayer) && IsDashing)
+      {
+        _obstacleDetected = false;
+        if (closeContact)
+        {
+          CrateObstacle crateObstacle = collider.GetComponent<CrateObstacle>();
+          crateObstacle.DestroyCrate();
+          _audioSource.PlayOneShot(_crateDestroyedClip);
+        }
+      }
+    }
+    _isObstructed = closeContact && _obstacleDetected;
   }
 
   private bool CollisionIsLayer(in int collisionLayer, in LayerMask layerMask)
@@ -35,5 +51,12 @@ public partial class Player
   {
     if (CollisionIsLayer(collision.gameObject.layer, _killableLayer))
       _dead = true;
+
+    if (CollisionIsLayer(collision.gameObject.layer, _breakableLayer) && IsDashing)
+    {
+      CrateObstacle crateObstacle = collision.gameObject.GetComponent<CrateObstacle>();
+      crateObstacle.DestroyCrate();
+      _audioSource.PlayOneShot(_crateDestroyedClip);
+    }
   }
 }

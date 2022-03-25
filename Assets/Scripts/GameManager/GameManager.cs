@@ -10,6 +10,7 @@ public partial class GameManager : MonoBehaviour
 
   [Header("Game")]
   public GameStopper gameStopper;
+  [SerializeField] private ScoreManager _scoreManager;
   [SerializeField] private AnimationCurve _incrementalCurve;
   [SerializeField] private float _incrementSpeed = 0.1f;
   private float _incrementValue;
@@ -39,6 +40,7 @@ public partial class GameManager : MonoBehaviour
   public int CurrScore => (int)(_distTraveled * _distanceMultiplier);
   public float DistTraveled => _distTraveled;
   private float _distTraveled;
+  private float _timeTaken;
 
   // change in distance traveled
   public float DeltaDist => _deltaDist;
@@ -110,6 +112,7 @@ public partial class GameManager : MonoBehaviour
     }
 
     _distTraveled += _deltaDist;
+    _timeTaken += dt;
 
     for (int sm=0; sm < _scrollingMaterials.Length; sm++)
     {

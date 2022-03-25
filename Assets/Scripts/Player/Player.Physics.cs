@@ -51,6 +51,7 @@ public partial class Player
 
     // apply gravity and external force
     _velocity += _gravity * dt;
+    _visualEffect.SetFloat(Intensity, 1.0f + _velocity.x);
 
     HandleJump();
     HandleDash();

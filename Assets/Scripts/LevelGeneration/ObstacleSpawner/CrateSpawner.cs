@@ -1,7 +1,4 @@
 using Unity.Mathematics;
-using System;
-using Random = UnityEngine.Random;
-using UnityEngine;
 
 public class CrateSpawner : AbstractObstacleSpawner
 {
@@ -12,17 +9,16 @@ public class CrateSpawner : AbstractObstacleSpawner
 
     for (int i = 0; i < indices.Length; i++)
     {
-      if (indices[i] == -1) continue;
+      int3[] gridMatrix = platformGrid.GridMatrix;
 
       int height = platformGrid.GetGridHeightAtUnit(indices[i]);
-      if (height < 2)
+      if (height == 1)
       {
-        int3[] gridMatrix = platformGrid.GetGridMatrix();
-        if (gridMatrix[indices[i]][0] != 1)
+        if (gridMatrix[indices[i]][0] != (int)ObstacleType.Killable)
         {
-        platformGrid.InsertCell(indices[i], height, ObstacleType.Breakable);
-        int poolIdx = NextPoolIdx();
-        _obstaclePool[poolIdx].Spawn(ref platform, indices[i], height);
+          platformGrid.InsertCell(indices[i], height, ObstacleType.Breakable);
+          int poolIdx = NextPoolIdx();
+          _obstaclePool[poolIdx].Spawn(ref platform, indices[i], height);
         }
       }
     }

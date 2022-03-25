@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d889df675fbf9ad47a713165720a6343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _light: {fileID: 6364301811440979633}
 --- !u!1 &1434097252409902473
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +186,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: -1347356745
   m_Mesh: {fileID: 0}
-  m_InstanceId: 27568
+  m_InstanceId: 57806
 --- !u!114 &6364301811440979633
 MonoBehaviour:
   m_ObjectHideFlags: 0
