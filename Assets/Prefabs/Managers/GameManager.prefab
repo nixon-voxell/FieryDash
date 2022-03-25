@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4516701278493465435}
   - component: {fileID: 4516701278493465432}
   - component: {fileID: 1988466946562757314}
+  - component: {fileID: 801975660022802559}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   _pauseMenuAnimation: {fileID: 0}
   _volumeManager: {fileID: 1988466946562757314}
   gameStopper: {fileID: 0}
+  _scoreManager: {fileID: 801975660022802559}
   _incrementalCurve:
     serializedVersion: 2
     m_Curve:
@@ -212,3 +214,21 @@ MonoBehaviour:
   _pauseCutoff: 200
   _pauseCutoffSpeed: 5
   _resumeCutoffSpeed: 0.5
+--- !u!114 &801975660022802559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4516701278493465437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94daadb7066baf440b52120581d8c0be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _highScoreSaver:
+    _filepath: Score.json
+  _highScores: []
+  _textMeshPro: {fileID: 0}
+  _pulsingRate: 4
+  _pulsingSize: 0.5

@@ -6,6 +6,7 @@ public partial class GameManager
     _targetSpeed = _levelSettings[levelIdx].minSpeed;
     _levelIdx = levelIdx;
     _distTraveled = 0.0f;
+    _timeTaken = 0.0f;
     _gameStarted = true;
   }
 
@@ -14,6 +15,8 @@ public partial class GameManager
     _gameStarted = false;
     _targetSpeed = 0.0f;
     _gameStarted = false;
+
+    _scoreManager.StoreScore(CurrScore, (int)_timeTaken);
   }
 
   public void ReloadGame()

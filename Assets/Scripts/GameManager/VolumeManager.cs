@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class VolumeManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class VolumeManager : MonoBehaviour
   [SerializeField] private Saver<VolumeData> _volumeSaver;
   [SerializeField] private AudioMixer _masterMixer;
   [SerializeField] private VolumeData _volumeData;
+  [SerializeField] private Slider _fxSlider;
+  [SerializeField] private Slider _musicSlider;
 
   [SerializeField] private float _volumeMultiplier = 30.0f;
   [SerializeField] private float _pauseCutoff = 200.0f;
@@ -30,6 +33,9 @@ public class VolumeManager : MonoBehaviour
 
     SetSFXVolume(_volumeData.fxVolume);
     SetMusicVolume(_volumeData.musicVolume);
+    _fxSlider.SetValueWithoutNotify(_volumeData.fxVolume);
+    _musicSlider.SetValueWithoutNotify(_volumeData.musicVolume);
+
     _targetCutoff = 22000.0f;
     _currCutoff = _targetCutoff;
   }
