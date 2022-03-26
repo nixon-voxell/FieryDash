@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
+using TMPro;
 using Voxell.Mathx;
 
 using Random = UnityEngine.Random;
@@ -9,6 +11,8 @@ public partial class GameManager : MonoBehaviour
   [Header("Menu & Managers")]
   [SerializeField] private KeyCode _pauseKey;
   [SerializeField] private PopInAnimation _pauseMenuAnimation;
+  [SerializeField] private PopInAnimation _nowPlayingAnimation;
+  [SerializeField] private TextMeshProUGUI _nowPlayingText;
   [SerializeField] private VolumeManager _volumeManager;
   [SerializeField] private AudioSource _audioSource;
   [SerializeField] private AudioClip[] _audioClips;
@@ -61,6 +65,7 @@ public partial class GameManager : MonoBehaviour
 
   public static bool GamePaused => _gamePaused;
   private static bool _gamePaused;
+  private bool isFocused;
 
   private void Start()
   {
@@ -76,15 +81,19 @@ public partial class GameManager : MonoBehaviour
     MathUtil.ShuffleArray<AudioClip>(ref _audioClips, (uint)Random.Range(1, 100));
     _audioSource.clip = _audioClips[_audioClipIdx];
     _audioSource.Play();
+    StartCoroutine(NowPlaying(_audioClips[_audioClipIdx].name));
     NextAudioClipIdx();
   }
 
+  private void OnApplicationFocus(bool focusStatus) => isFocused = focusStatus;
+
   private void LateUpdate()
   {
-    if (_audioSource.isPlaying == false)
+    if (isFocused && !_audioSource.isPlaying)
     {
       _audioSource.clip = _audioClips[_audioClipIdx];
       _audioSource.Play();
+      StartCoroutine(NowPlaying(_audioClips[_audioClipIdx].name));
       NextAudioClipIdx();
     }
   }
@@ -168,6 +177,14 @@ public partial class GameManager : MonoBehaviour
   private void NextAudioClipIdx()
   {
     _audioClipIdx = (_audioClipIdx + 1) % _audioClips.Length;
+  }
+
+  private IEnumerator NowPlaying(string clipName)
+  {
+    _nowPlayingText.text = clipName + " - Voxal Music";
+    _nowPlayingAnimation.Open();
+    yield return new WaitForSeconds(5.0f);
+    _nowPlayingAnimation.Close();
   }
 }
 

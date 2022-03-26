@@ -14,6 +14,7 @@ public class CrateObstacle : AbstractObstacle
       platformT.localScale.y*0.5f + height + transform.lossyScale.y*0.5f, 0.0f
     );
     _animator.Play("Crate");
+    _boxCollider.enabled = true;
   }
 
   public void DestroyCrate()

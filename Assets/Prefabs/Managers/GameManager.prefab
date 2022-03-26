@@ -103,7 +103,7 @@ MonoBehaviour:
     speed: 0.02
   - materials:
     - {fileID: 2100000, guid: 91a03d49fbd4a7b4b85b802fbf50079a, type: 2}
-    speed: 0.01
+    speed: 0.015
   - materials:
     - {fileID: 2100000, guid: 5f3b29f6d3ae1694482c73ca0bf1d9bf, type: 2}
     speed: 0.005

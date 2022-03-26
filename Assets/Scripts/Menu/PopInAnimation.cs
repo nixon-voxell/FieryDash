@@ -12,8 +12,9 @@ public class PopInAnimation : MonoBehaviour
 
   private void Start()
   {
-    _bgGroup.alpha = 0.0f;
     _boardOutY = _settingsBoard.localPosition.y;
+    if (_bgGroup != null)
+      _bgGroup.alpha = 0.0f;
   }
 
   public void Open() 
@@ -22,6 +23,7 @@ public class PopInAnimation : MonoBehaviour
       _settingsBoard.localPosition.x, _boardInY, 0.0f
     ), _animateDuration).setEaseOutBack().setIgnoreTimeScale(true);
 
+    if (_bgGroup == null) return;
     _bgGroup.LeanAlpha(_backgroundDarken, _animateDuration).setEaseOutQuad().setIgnoreTimeScale(true);
     _bgGroup.blocksRaycasts = true;
   }
@@ -32,6 +34,7 @@ public class PopInAnimation : MonoBehaviour
       _settingsBoard.localPosition.x, _boardOutY, 0.0f
     ), _animateDuration).setEaseInBack().setIgnoreTimeScale(true);
 
+    if (_bgGroup == null) return;
     _bgGroup.LeanAlpha(0.0f, _animateDuration).setEaseOutQuad().setIgnoreTimeScale(true);
     _bgGroup.blocksRaycasts = false;
   }
