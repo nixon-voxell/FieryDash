@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+  [SerializeField] private CanvasGroup _instructionGroup;
   [SerializeField] private CanvasGroup _gameplayGroup;
   [SerializeField] private float _animateDuration;
 
@@ -35,6 +36,7 @@ public class MainMenu : MonoBehaviour
       ).setDelay(delayTime).setEaseInBack().setIgnoreTimeScale(true);
       delayTime += 0.2f;
     }
+    _instructionGroup.LeanAlpha(0.0f, _animateDuration).setEaseOutQuad().setIgnoreTimeScale(true);
     _gameplayGroup.LeanAlpha(1.0f, _animateDuration).setEaseOutQuad().setDelay(delayTime).setIgnoreTimeScale(true);
   }
 
@@ -52,6 +54,7 @@ public class MainMenu : MonoBehaviour
       ).setDelay(delayTime).setEaseOutBack().setIgnoreTimeScale(true);
       delayTime += 0.2f;
     }
+    _instructionGroup.LeanAlpha(1.0f, _animateDuration).setEaseOutQuad().setIgnoreTimeScale(true);
   }
 
   public void QuitGame()
